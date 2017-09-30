@@ -31,7 +31,7 @@ works properly, the code should compile and an executable file called
 To run it, simply type `./MegaChessatron`.
 
 On windows you can either try to import the project into DevC++ and
-set the custom Makefile using instructions given (https://stackoverflow.com/questions/13544684/running-a-project-in-dev-c)[here]
+set the custom Makefile using instructions given here: https://stackoverflow.com/questions/13544684/running-a-project-in-dev-c 
 or you may use either the git shell or cygwin to get a linux shell in windows.
 
 ## How to contribute to the code
