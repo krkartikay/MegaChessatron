@@ -6,8 +6,10 @@
 // ----------------------
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
+#define BOARD_SIZE 8
 
 // prototypes for board.c
 // ----------------------
@@ -20,7 +22,7 @@ typedef union move{
 
 // state of the game, includes pointer to last position
 typedef struct position {
-	char board[8][8];
+	char board[BOARD_SIZE][BOARD_SIZE];
 	// board position stored like this:
 	// rnbqkbnr pppppppp ........ PPPPPPPP RNBQKBNR
 	// small letters for black and capital for white
@@ -30,6 +32,10 @@ typedef struct position {
 	struct position* last_pos;
 } position;
 
+// first fxn creates new position struct and initialises it
+// second fxn used to delete it
+position* createNewPosition(char a[BOARD_SIZE][BOARD_SIZE]);
+void deletePosition(position* pos);
 
 // This function displays the board and prints out move info
 void displayBoard(position* pos);
