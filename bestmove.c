@@ -11,10 +11,10 @@ position* getBestMove(position* initialPos, int plyDepth){
 	position** nodesList = malloc(50*sizeof(position));
 	// TODO later replace 50 by the actual number
 	// write a function to simply count no. of legal moves
-	while(x.move!=0){
+	while(x.move){
 		nodesList[i] = getPositionAfterMove(initialPos,x);
 		i++;
-		move x = movelist[i];
+		x = movelist[i];
 	}
 	nodesList[i] = NULL;
 	

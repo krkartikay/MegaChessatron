@@ -1,9 +1,9 @@
 OBJS = board.o evaluate.o main.o bestmove.o moves.o
-FLAGS = 
+FLAGS =
 
 all: MegaChessatron
 
-debug: FLAGS += -g
+debug: FLAGS += -O0 -g -DDEBUG
 debug: all
 
 optimised: FLAGS += -O3

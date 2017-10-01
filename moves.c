@@ -7,6 +7,7 @@ bool isMoveValid(move m, position* pos){
 	int y2=8-(m.coordinates[3]-'0');
 	char moving_piece = pos->board[y1][x1];
 	char landing_square = pos->board[y2][x2];
+	// TODO check whose turn it is
 	switch(moving_piece){
 		case '.':
 			// you can't move empty piece
@@ -32,13 +33,12 @@ position* getPositionAfterMove(position* pos, move m){
 	new_pos->board[y1][x1] = '.';
 	new_pos->board[y2][x2] = moving_piece;
 	new_pos->currentMove = m;
-	return pos;
+	return new_pos;
 }
 
 move* possibleNextMoves(position* pos){
-	// TODO implement this function
 	// i am assuming here that there can be max. 50 moves
-	// possible for each position
+	// possible for each position TODO fixit later
 	move* movelist = malloc(50*sizeof(move));
 	
 	char piece;
@@ -52,6 +52,7 @@ move* possibleNextMoves(position* pos){
 					// no move possible
 					break;
 				case 'P':
+					// TODO Whose move is it
 					m = newMove(i,j,i,j-1);
 					movelist[l] = m;
 					l++;
