@@ -26,7 +26,7 @@
  */
 
 position* createNewPosition(char a[BOARD_SIZE][BOARD_SIZE]){
-	position* newPos = (position*) malloc(sizeof(position));
+	position* newPos = malloc(sizeof(position));
 	//newPos->lastPos=NULL;
 	newPos->turn = 'w';
 	newPos->evaluation = 0;
