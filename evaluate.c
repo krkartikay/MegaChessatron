@@ -1,6 +1,6 @@
 #include "common.h"
 
 int evaluate(position* pos){
-	// TODO write the evaluatin function
+	// TODO write the evaluation function
 	return 0;
 }

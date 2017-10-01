@@ -1,4 +1,4 @@
-OBJS = board.o evaluate.o main.o bestmove.o
+OBJS = board.o evaluate.o main.o bestmove.o moves.o
 FLAGS = 
 
 all: MegaChessatron

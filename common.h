@@ -45,6 +45,10 @@ void deletePosition(position* pos);
 // This function displays the board and prints out move info
 void displayBoard(position* pos);
 
+// ----------------------
+// prototypes for moves.c
+// ----------------------
+
 // determines weather given move is valid or not
 bool isMoveValid(move, position*);
 // determines position after move

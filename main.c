@@ -6,6 +6,7 @@ int main(){
 	char initboard[8][8]={"pppppppp","........","........","........","........","........","........","PPPPPPPP"};
 	new_position = createNewPosition(initboard);
 	displayBoard(new_position);
+	getBestMove(new_position, 5);
 	deletePosition(new_position);
 	return 0;
 }
