@@ -49,6 +49,8 @@ void displayBoard(position* pos);
 // prototypes for moves.c
 // ----------------------
 
+// creates new move object
+move newMove(int x1, int y1, int x2, int y2);
 // determines weather given move is valid or not
 bool isMoveValid(move, position*);
 // determines position after move
