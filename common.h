@@ -2,6 +2,7 @@
 // ======================
 
 
+// ----------------------
 // common libraries
 // ----------------------
 
@@ -11,6 +12,7 @@
 
 #define BOARD_SIZE 8
 
+// ----------------------
 // prototypes for board.c
 // ----------------------
 
@@ -28,8 +30,11 @@ typedef struct position {
 	// small letters for black and capital for white
 	// dots for blank space
 	// board always shown with white at bottom
-	char turn; // W for white and b for black
-	struct position* last_pos;
+	char turn; // w for white and b for black
+	//struct position* lastPos;
+	//no longer required
+	int evaluation;
+	move currentMove;
 } position;
 
 // first fxn creates new position struct and initialises it
@@ -43,11 +48,11 @@ void displayBoard(position* pos);
 // determines weather given move is valid or not
 bool isMoveValid(move, position*);
 // determines position after move
-position* getNextPosition(position*, move);
+position* getPositionAfterMove(position*, move);
 // function that returns an array of the next possible moves
 move* possibleNextMoves(position*);
 
-
+// ----------------------
 // prototypes for evaluate.c
 // ----------------------
 
@@ -55,9 +60,11 @@ move* possibleNextMoves(position*);
 // +100 means white winning and -100 means black winning by 1 pawn
 int evaluate(position*);
 
+
+// ----------------------
 // prototypes for bestmove.c
 // ----------------------
 
 // gets best move from given position
 // searches upto given ply depth
-move getBestMove(position* pos, int plyDepth);
+position* getBestMove(position* pos, int plyDepth);
