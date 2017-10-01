@@ -28,9 +28,10 @@ position* getPositionAfterMove(position* pos, move m){
 	int x2=m.coordinates[2]-'a';
 	int y2=8-(m.coordinates[3]-'0');
 	char moving_piece = pos->board[y1][x1];
-	pos->board[y1][x1] = '.';
-	pos->board[y2][x2] = moving_piece;
-	pos->currentMove = m;
+	position* new_pos = createNewPosition(pos->board);
+	new_pos->board[y1][x1] = '.';
+	new_pos->board[y2][x2] = moving_piece;
+	new_pos->currentMove = m;
 	return pos;
 }
 
@@ -51,12 +52,12 @@ move* possibleNextMoves(position* pos){
 					// no move possible
 					break;
 				case 'P':
-					m = newMove(i,j,i,j+1);
+					m = newMove(i,j,i,j-1);
 					movelist[l] = m;
 					l++;
 					break;
 				case 'p':
-					m = newMove(i,j,i,j-1);
+					m = newMove(i,j,i,j+1);
 					movelist[l] = m;
 					l++;
 					break;
