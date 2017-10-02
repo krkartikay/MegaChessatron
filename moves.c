@@ -7,16 +7,25 @@ bool isMoveValid(move m, position* pos){
 	int y2=8-(m.coordinates[3]-'0');
 	char moving_piece = pos->board[y1][x1];
 	char landing_square = pos->board[y2][x2];
-	// TODO check whose turn it is
+	if(moving_piece>'a'&&moving_piece<'z'&&pos->turn=='w'){
+		// its a black piece and turn is white
+		return false;
+	}
+	if(moving_piece>'A'&&moving_piece<'Z'&&pos->turn=='b'){
+		// its a white piece and turn is black
+		return false;
+	}
 	switch(moving_piece){
 		case '.':
 			// you can't move empty piece
 			return false;
 		case 'P':
 			// white pawn can move only one place forward
+			// TODO write code for pawn captures
 			return (x1==x2)&&((y1-y2)==1);
 		case 'p':
 			// black pawn can move only one place backward
+			// TODO write code for pawn captures
 			return (x1==x2)&&((y2-y1)==1);
 	}
 	return false;
@@ -52,13 +61,16 @@ move* possibleNextMoves(position* pos){
 					// no move possible
 					break;
 				case 'P':
-					// TODO Whose move is it
+					if(pos->turn=='b') break;
 					m = newMove(i,j,i,j-1);
 					movelist[l] = m;
+					// TODO write code for pawn captures
 					l++;
 					break;
 				case 'p':
+					if(pos->turn=='w') break;
 					m = newMove(i,j,i,j+1);
+					// TODO write code for pawn captures
 					movelist[l] = m;
 					l++;
 					break;
