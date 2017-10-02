@@ -32,11 +32,12 @@ position* getBestMove(position* initialPos, int plyDepth){
 			position* best_eval = getBestMove(nodesList[i],
 					plyDepth-1);
 			nodesList[i]->evaluation = best_eval->evaluation;
+			deletePosition(best_eval);
 		}
 	}
 	
 	// ... and now choose the best one
-	int max_eval;
+	int max_eval = 0;
 	position* best_position;
 	best_position = nodesList[0];
 	for(i=0;nodesList[i]!=NULL;i++){
@@ -47,7 +48,14 @@ position* getBestMove(position* initialPos, int plyDepth){
 	}
 
 	// ... free nodesList ... but copy bestmove first TODO
+	position* ret = createNewPosition(best_position->board);
+	*ret = *best_position;
+	for(i=0;nodesList[i]!=NULL;i++){
+		deletePosition(nodesList[i]);
+	}
+	free(nodesList);
+	free(movelist);
 
 	// return best position
-	return best_position;
+	return ret;
 }
