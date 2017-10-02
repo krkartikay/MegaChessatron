@@ -1,6 +1,8 @@
 # MegaChessatron
 Megachessatron being built by students of CSE NITH 1st year.
 
+<img alt="Image of Megachessatron" height=200 src="https://i.imgur.com/2x3xRgM.png">
+
 ## Project Structure
 
 This is a chess engine being written in C. The code uses the MINIMAX
