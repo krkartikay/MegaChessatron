@@ -46,7 +46,7 @@ position* getBestMove(position* initialPos, int plyDepth){
 	// ... and now choose the best one ACCORDING TO THE TURN
 	position* best_position = nodesList[0];
 	if(initialPos->turn=='w'){
-		int max_eval = 0; // white should choose the position with max_eval
+		int max_eval = nodesList[0]->evaluation; // white should choose the position with max_eval
 		for(i=0;nodesList[i]!=NULL;i++){
 			if(max_eval<nodesList[i]->evaluation){
 				max_eval = nodesList[i]->evaluation;
@@ -54,7 +54,7 @@ position* getBestMove(position* initialPos, int plyDepth){
 			}
 		}
 	} else {
-		int min_eval = 0; // black should go for min_eval
+		int min_eval = nodesList[0]->evaluation; // black should go for min_eval
 		for(i=0;nodesList[i]!=NULL;i++){
 			if(min_eval>nodesList[i]->evaluation){
 				min_eval = nodesList[i]->evaluation;

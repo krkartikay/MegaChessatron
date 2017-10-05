@@ -55,11 +55,11 @@ move* possibleNextMoves(position* pos){
 						m = newMove(i,j,i,j+1);
 						movelist[l] = m; l++;
 					}
-					if(isValidCoordinates(i+1,j+1) && isBlackSymbol(pos->board[j+1][i+1])){
-						m = newMove(i,j,i+1,j-1);
+					if(isValidCoordinates(i+1,j+1) && isWhiteSymbol(pos->board[j+1][i+1])){
+						m = newMove(i,j,i+1,j+1);
 						movelist[l] = m; l++;
 					}
-					if(isValidCoordinates(i-1,j+1) && isBlackSymbol(pos->board[j+1][i-1])){
+					if(isValidCoordinates(i-1,j+1) && isWhiteSymbol(pos->board[j+1][i-1])){
 						m = newMove(i,j,i-1,j+1);
 						movelist[l] = m; l++;
 					}
