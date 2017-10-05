@@ -51,8 +51,8 @@ void displayBoard(position* pos);
 
 // creates new move object
 move newMove(int x1, int y1, int x2, int y2);
-// determines weather given move is valid or not
-bool isMoveValid(move, position*);
+// determines weather given coordinates are valid or not
+bool isValidCoordinates(int i, int j);
 // determines position after move
 position* getPositionAfterMove(position*, move);
 // function that returns an array of the next possible moves

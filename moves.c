@@ -1,38 +1,11 @@
 #include "common.h"
 
-bool isMoveValid(move m, position* pos){
-	int x1=m.coordinates[0]-'a';
-	int y1=8-(m.coordinates[1]-'0');
-	int x2=m.coordinates[2]-'a';
-	int y2=8-(m.coordinates[3]-'0');
-	char moving_piece = pos->board[y1][x1];
-	char landing_square = pos->board[y2][x2];
-	if(moving_piece>'a'&&moving_piece<'z'&&pos->turn=='w'){
-		// its a black piece and turn is white
-		return false;
-	}
-	if(moving_piece>'A'&&moving_piece<'Z'&&pos->turn=='b'){
-		// its a white piece and turn is black
-		return false;
-	}
-	switch(moving_piece){
-		case '.':
-			// you can't move empty piece
-			return false;
-		case 'P':
-			// white pawn can move only one place forward
-			// TODO write code for pawn captures
-			return (x1==x2)&&((y1-y2)==1);
-		case 'p':
-			// black pawn can move only one place backward
-			// TODO write code for pawn captures
-			return (x1==x2)&&((y2-y1)==1);
-	}
-	return false;
-}
+#define isWhiteSymbol(x) ('A'<x&&x<'Z')
+#define isBlackSymbol(x) ('a'<x&&x<'z')
 
 position* getPositionAfterMove(position* pos, move m){
-	if(!isMoveValid(m,pos)) return NULL;
+	// if(!isMoveValid(m,pos)) return NULL; 
+	// isMoveValid() function was removed
 	int x1=m.coordinates[0]-'a';
 	int y1=8-(m.coordinates[1]-'0');
 	int x2=m.coordinates[2]-'a';
@@ -63,17 +36,33 @@ move* possibleNextMoves(position* pos){
 					break;
 				case 'P':
 					if(pos->turn=='b') break;
-					m = newMove(i,j,i,j-1);
-					movelist[l] = m;
-					// TODO write code for pawn captures
-					l++;
+					if(pos->board[j-1][i]=='.'){
+						m = newMove(i,j,i,j-1);
+						movelist[l] = m; l++;
+					}
+					if(isValidCoordinates(i+1,j-1) && isBlackSymbol(pos->board[j-1][i+1])){
+						m = newMove(i,j,i+1,j-1);
+						movelist[l] = m; l++;
+					}
+					if(isValidCoordinates(i-1,j-1) && isBlackSymbol(pos->board[j-1][i-1])){
+						m = newMove(i,j,i-1,j-1);
+						movelist[l] = m; l++;
+					}
 					break;
 				case 'p':
 					if(pos->turn=='w') break;
-					m = newMove(i,j,i,j+1);
-					// TODO write code for pawn captures
-					movelist[l] = m;
-					l++;
+					if(pos->board[j+1][i]=='.'){
+						m = newMove(i,j,i,j+1);
+						movelist[l] = m; l++;
+					}
+					if(isValidCoordinates(i+1,j+1) && isBlackSymbol(pos->board[j+1][i+1])){
+						m = newMove(i,j,i+1,j-1);
+						movelist[l] = m; l++;
+					}
+					if(isValidCoordinates(i-1,j+1) && isBlackSymbol(pos->board[j+1][i-1])){
+						m = newMove(i,j,i-1,j+1);
+						movelist[l] = m; l++;
+					}
 					break;
 			}
 		}
@@ -92,4 +81,16 @@ move newMove(int x1, int y1, int x2, int y2){
 	m.coordinates[2] = 'a'+x2;
 	m.coordinates[3] = (8-y2)+'0';
 	return m;
+}
+
+bool isValidCoordinates(int i, int j){
+	if(i<0)
+		return false;
+	if(j<0)
+		return false;
+	if(i>BOARD_SIZE-1)
+		return false;
+	if(j>BOARD_SIZE-1)
+		return false;
+	return true;
 }
