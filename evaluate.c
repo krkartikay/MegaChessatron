@@ -9,6 +9,7 @@ int evaluate(position* pos){
 	int evaluation;
 
 	// count pawns ... black and white
+	char piece;
 	for(int j=0; j<BOARD_SIZE; j++){
 		for(int i=0; i<BOARD_SIZE; i++){
 			piece = pos->board[j][i];
