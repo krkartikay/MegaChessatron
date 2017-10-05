@@ -36,18 +36,30 @@ position* getBestMove(position* initialPos, int plyDepth){
 		}
 	}
 	
-	// ... and now choose the best one
-	int max_eval = 0;
-	position* best_position;
-	best_position = nodesList[0];
-	for(i=0;nodesList[i]!=NULL;i++){
-		if(max_eval<nodesList[i]->evaluation){
-			max_eval = nodesList[i]->evaluation;
-			best_position = nodesList[i];
+	// ... and now choose the best one ACCORDING TO THE TURN
+	if(initialPos->turn=='w'){
+		int max_eval = 0; // white should choose the position with max_eval
+		position* best_position;
+		best_position = nodesList[0];
+		for(i=0;nodesList[i]!=NULL;i++){
+			if(max_eval<nodesList[i]->evaluation){
+				max_eval = nodesList[i]->evaluation;
+				best_position = nodesList[i];
+			}
+		}
+	} else {
+		int min_eval = 0; // black should go for min_eval
+		position* best_position;
+		best_position = nodesList[0];
+		for(i=0;nodesList[i]!=NULL;i++){
+			if(min_eval>nodesList[i]->evaluation){
+				min_eval = nodesList[i]->evaluation;
+				best_position = nodesList[i];
+			}
 		}
 	}
 
-	// ... free nodesList ... but copy bestmove first TODO
+	// ... free nodesList ... but copy bestmove first
 	position* ret = createNewPosition(best_position->board);
 	*ret = *best_position;
 	for(i=0;nodesList[i]!=NULL;i++){
