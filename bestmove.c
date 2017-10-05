@@ -8,6 +8,13 @@ position* getBestMove(position* initialPos, int plyDepth){
 	// then find what will be the position after these moves
 	int i=0;
 	move x=movelist[i];
+	if(!movelist[0].move){
+		// NO moves possible -- stalemate -- draw
+		position* ret = createNewPosition(initialPos->board);
+		*ret = *initialPos;
+		ret->evaluation = 0;
+		return ret;
+	}
 	position** nodesList = malloc(50*sizeof(position));
 	// TODO later replace 50 by the actual number
 	// write a function to simply count no. of legal moves

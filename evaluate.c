@@ -15,9 +15,13 @@ int evaluate(position* pos){
 			piece = pos->board[j][i];
 			switch(piece){
 				case 'P':
+					if (j==0)
+						evaluation += 1000000;
 					evaluation += 100;
 					break;
 				case 'p':
+					if (j==BOARD_SIZE-1)
+						evaluation -= 1000000;
 					evaluation -= 100;
 					break;
 			}

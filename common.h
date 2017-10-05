@@ -74,3 +74,6 @@ int evaluate(position*);
 // gets best move from given position
 // searches upto given ply depth
 position* getBestMove(position* pos, int plyDepth);
+
+// for testing
+void runTests();
