@@ -6,7 +6,7 @@ int evaluate(position* pos){
 	// value is +ve means that white is winning even if
 	// it is black's move.
 	
-	int evaluation;
+	int evaluation = 0;
 
 	// count pawns ... black and white
 	char piece;
@@ -23,6 +23,5 @@ int evaluate(position* pos){
 			}
 		}
 	}
-
 	return evaluation;
 }

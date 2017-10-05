@@ -41,7 +41,7 @@ position* getPositionAfterMove(position* pos, move m){
 	position* new_pos = createNewPosition(pos->board);
 	new_pos->board[y1][x1] = '.';
 	new_pos->board[y2][x2] = moving_piece;
-	new_pos->turn = (new_pos->turn=='w')?'b':'w';
+	new_pos->turn = (pos->turn=='w')?'b':'w';
 	new_pos->currentMove = m;
 	return new_pos;
 }

@@ -1,14 +1,24 @@
 #include "common.h"
 
 int main(){
-	// code for testing display function
-	position *initial_position, *new_position;
+	// Setup intial position
+	position *current_position;
 	char initboard[8][8]={"pppppppp","........","........",
 		"........","........","........","........","PPPPPPPP"};
-	initial_position = createNewPosition(initboard);
-	new_position = getBestMove(initial_position, 3);
-	displayBoard(new_position);
-	deletePosition(initial_position);
-	deletePosition(new_position);
+	current_position = createNewPosition(initboard);
+	
+	displayBoard(current_position);
+
+	// run the game upto 20 moves
+
+	for (int i = 0; i < 20; ++i)
+	{
+		// print whose turn it is
+		printf("Its is %s's turn\n", (current_position->turn=='w')?"White":"Black");
+		current_position = getBestMove(current_position, 3);
+		displayBoard(current_position);
+	}
+	
+	deletePosition(current_position);
 	return 0;
 }
