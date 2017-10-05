@@ -1,6 +1,12 @@
 # Main Executable
 MegaChessatron
 
+# vim swap files
+*.swp
+
+# temporary output data files
+data.txt
+
 # Prerequisites
 *.d
 
