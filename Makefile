@@ -3,8 +3,12 @@ FLAGS =
 
 all: MegaChessatron
 
-debug: FLAGS += -O0 -g -DDEBUG
+debug: FLAGS += -O0 -g
 debug: all
+
+testdebug: FLAGS+= -O0 -g -DDEBUG
+testdebug: OBJS+= testing.o
+testdebug: testing.o all
 
 optimised: FLAGS += -O3
 optimised: MegaChessatron

@@ -54,3 +54,28 @@ void displayBoard(position* pos){
 	}
 	printf("%s\n",line);
 }
+
+bool isGameRunning(position* pos){
+	// true if running
+	// false if ended
+	bool isThereAWhiteKing = false;
+	bool isThereABlackKing = false;
+	bool areThereValidMoves = false;
+	for(int j=0; j<BOARD_SIZE; j++){
+		for(int i=0; i<BOARD_SIZE; i++){
+			switch(pos->board[j][i]){
+				case 'k':
+					isThereABlackKing = true;
+					break;
+				case 'K':
+					isThereAWhiteKing = true;
+					break;
+			}
+		}
+	}
+	move* movelist = possibleNextMoves(pos);
+	if(movelist[0].move)
+		areThereValidMoves = true;
+	free(movelist);
+	return isThereAWhiteKing && isThereABlackKing && areThereValidMoves;
+}

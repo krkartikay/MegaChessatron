@@ -32,11 +32,12 @@ typedef struct position {
 	// dots for blank space
 	// board always shown with white at bottom
 	char turn; // w for white and b for black
-	//struct position* lastPos;
-	//no longer required
 	int evaluation;
 	move currentMove;
 } position;
+
+// determine weather game has ended or not
+bool isGameRunning(position* pos);
 
 // first fxn creates new position struct and initialises it
 // second fxn used to delete it
@@ -76,5 +77,7 @@ int evaluate(position*);
 // searches upto given ply depth
 position* getBestMove(position* pos, int plyDepth);
 
-// for testing
+// for testing -- in testing.c
+// runs in place of main if building
+// with command make testdebug
 void runTests();
