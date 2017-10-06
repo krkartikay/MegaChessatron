@@ -38,6 +38,8 @@ typedef struct position {
 
 // determine weather game has ended or not
 bool isGameRunning(position* pos);
+// if the game has ended; who won?
+int whoWon(position* pos);
 
 // first fxn creates new position struct and initialises it
 // second fxn used to delete it

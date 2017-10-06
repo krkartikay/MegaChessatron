@@ -9,6 +9,7 @@ debug: all
 testdebug: FLAGS+= -O0 -g -DDEBUG
 testdebug: OBJS+= testing.o
 testdebug: testing.o all
+	gcc -o MegaChessatron $(FLAGS) $(OBJS)
 
 optimised: FLAGS += -O3
 optimised: MegaChessatron

@@ -8,6 +8,17 @@ int evaluate(position* pos){
 	
 	int evaluation = 0;
 
+	if(!isGameRunning(pos)){
+		switch(whoWon(pos)){
+			case 1:
+				return 1000000;
+			case -1:
+				return -1000000;
+			case 0:
+				return 0;
+		}
+	}
+
 	// count pawns ... black and white
 	char piece;
 	for(int j=0; j<BOARD_SIZE; j++){
@@ -44,12 +55,12 @@ int evaluate(position* pos){
 				case 'q':
 					evaluation -= 1000;
 					break;
-				case 'K':
+				/*case 'K':
 					evaluation += 1000000;
 					break;
 				case 'k':
 					evaluation -= 1000000;
-					break;
+					break;*/
 			}
 		}
 	}

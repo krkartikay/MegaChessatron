@@ -79,3 +79,31 @@ bool isGameRunning(position* pos){
 	free(movelist);
 	return isThereAWhiteKing && isThereABlackKing && areThereValidMoves;
 }
+
+int whoWon(position* pos){
+	// returns -1 for black won; +1 for white won; 0 for draw;
+	// returns 2 for game still running.
+	bool isThereAWhiteKing = false;
+	bool isThereABlackKing = false;
+	bool areThereValidMoves = false;
+	for(int j=0; j<BOARD_SIZE; j++){
+		for(int i=0; i<BOARD_SIZE; i++){
+			switch(pos->board[j][i]){
+				case 'k':
+					isThereABlackKing = true;
+					break;
+				case 'K':
+					isThereAWhiteKing = true;
+					break;
+			}
+		}
+	}
+	move* movelist = possibleNextMoves(pos);
+	if(movelist[0].move)
+		areThereValidMoves = true;
+	free(movelist);
+	if(!isThereABlackKing) return 1;
+	if(!isThereAWhiteKing) return -1;
+	if(!areThereValidMoves) return 0;
+	return 2;
+}

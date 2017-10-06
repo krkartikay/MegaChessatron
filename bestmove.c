@@ -1,6 +1,21 @@
 #include "common.h"
 
 position* getBestMove(position* initialPos, int plyDepth){
+	if(!isGameRunning(initialPos)){
+		int i = 0;
+		switch(whoWon(initialPos)){
+			case 1:
+				i = 1000000;
+			case -1:
+				i = -1000000;
+			case 0:
+				i = 0;
+		}
+		position* ret = createNewPosition(initialPos->board);
+		*ret = *initialPos;
+		ret->evaluation = i;
+		return ret;
+	}
 	
 	// first of all find out all possible moves
 	move* movelist = possibleNextMoves(initialPos);

@@ -64,6 +64,34 @@ move* possibleNextMoves(position* pos){
 						movelist[l] = m; l++;
 					}
 					break;
+				case 'K':
+					if(pos->turn=='b') break;
+					for (int x = -1; x <= 1; ++x)
+					{
+						for (int y = -1; y <= 1; ++y)
+						{
+							if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+								||isBlackSymbol(pos->board[j+y][i+x]))){
+								m = newMove(i,j,i+x,j+y);
+								movelist[l] = m; l++;
+							}
+						}
+					}
+					break;
+				case 'k':
+					if(pos->turn=='w') break;
+					for (int x = -1; x <= 1; ++x)
+					{
+						for (int y = -1; y <= 1; ++y)
+						{
+							if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+								||isWhiteSymbol(pos->board[j+y][i+x]))){
+								m = newMove(i,j,i+x,j+y);
+								movelist[l] = m; l++;
+							}
+						}
+					}
+					break;
 			}
 		}
 	}
