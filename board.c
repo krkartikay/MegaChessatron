@@ -48,7 +48,10 @@ void displayBoard(position* pos){
 	for(int j=0; j<BOARD_SIZE; j++){
 		printf("%s\n",line);
 		for(int i=0; i<BOARD_SIZE; i++){
-			printf("|.%c.",pos->board[j][i]);
+			if(pos->board[j][i]!='.')
+				printf("| %c ",pos->board[j][i]);
+			else
+				printf("|   ");
 		}
 		printf("|\n");
 	}

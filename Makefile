@@ -14,6 +14,9 @@ testdebug: testing.o all
 optimised: FLAGS += -O3
 optimised: MegaChessatron
 
+fast: FLAGS += -Ofast
+fast: MegaChessatron
+
 MegaChessatron: $(OBJS)
 	gcc -o MegaChessatron $(FLAGS) $(OBJS)
 

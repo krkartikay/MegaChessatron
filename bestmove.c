@@ -6,10 +6,13 @@ position* getBestMove(position* initialPos, int plyDepth){
 		switch(whoWon(initialPos)){
 			case 1:
 				i = 1000000;
+				break;
 			case -1:
 				i = -1000000;
+				break;
 			case 0:
 				i = 0;
+				break;
 		}
 		position* ret = createNewPosition(initialPos->board);
 		*ret = *initialPos;
