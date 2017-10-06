@@ -194,6 +194,350 @@ move* possibleNextMoves(position* pos){
 						movelist[l] = m; l++;
 					}
 					break;
+				case 'R':
+					if(pos->turn=='b') break;
+					x=1; y=0;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++;
+					}
+					x=-1; y=0;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--;
+					}
+					break;
+					x=0; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						y++;
+					}
+					x=0; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						y--;
+					}
+					break;
+				case 'r':
+					if(pos->turn=='w') break;
+					x=1; y=0;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++;
+					}
+					x=-1; y=0;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--;
+					}
+					break;
+					x=0; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						y++;
+					}
+					x=0; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						y--;
+					}
+					break;
+				case 'B':
+					if(pos->turn=='b') break;
+					x=1; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++; y++;
+					}
+					x=1; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++; y--;
+					}
+					x=-1; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--; y++;
+					}
+					x=-1; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--; y--;
+					}
+					break;
+				case 'b':
+					if(pos->turn=='w') break;
+					x=1; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++; y++;
+					}
+					x=1; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++; y--;
+					}
+					x=-1; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--; y++;
+					}
+					x=-1; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--; y--;
+					}
+					break;
+				case 'Q':
+					if(pos->turn=='b') break;
+					x=1; y=0;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++;
+					}
+					x=-1; y=0;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--;
+					}
+					break;
+					x=0; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						y++;
+					}
+					x=0; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						y--;
+					}
+					if(pos->turn=='b') break;
+					x=1; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++; y++;
+					}
+					x=1; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++; y--;
+					}
+					x=-1; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--; y++;
+					}
+					x=-1; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isBlackSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--; y--;
+					}
+					break;
+				case 'q':
+					if(pos->turn=='w') break;
+					x=1; y=0;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++;
+					}
+					x=-1; y=0;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--;
+					}
+					break;
+					x=0; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						y++;
+					}
+					x=0; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						y--;
+					}
+					if(pos->turn=='b') break;
+					x=1; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++; y++;
+					}
+					x=1; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x++; y--;
+					}
+					x=-1; y=1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--; y++;
+					}
+					x=-1; y=-1;
+					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+						if(isWhiteSymbol(pos->board[j+y][i+x])){
+							break;
+						}
+						x--; y--;
+					}
+					break;
 			}
 		}
 	}
