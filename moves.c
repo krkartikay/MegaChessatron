@@ -26,7 +26,7 @@ move* possibleNextMoves(position* pos){
 	
 	char piece;
 	move m;
-	int l = 0;
+	int l = 0,x,y;
 	for(int j=0; j<BOARD_SIZE; j++){
 		for(int i=0; i<BOARD_SIZE; i++){
 			piece = pos->board[j][i];
@@ -90,6 +90,108 @@ move* possibleNextMoves(position* pos){
 								movelist[l] = m; l++;
 							}
 						}
+					}
+					break;
+				case 'N':
+					if(pos->turn=='b') break;
+					x = 1; y = 2;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = 2; y = 1;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = 1; y = -2;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = 2; y = -1;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = -1; y = 2;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = -2; y = 1;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = -1; y = -2;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = -2; y = -1;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isBlackSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					break;
+				case 'n':
+					if(pos->turn=='w') break;
+					x = 1; y = 2;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = 2; y = 1;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = 1; y = -2;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = 2; y = -1;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = -1; y = 2;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = -2; y = 1;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = -1; y = -2;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
+					}
+					x = -2; y = -1;
+					if(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
+						||isWhiteSymbol(pos->board[j+y][i+x]))){
+						m = newMove(i,j,i+x,j+y);
+						movelist[l] = m; l++;
 					}
 					break;
 			}

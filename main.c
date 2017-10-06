@@ -20,7 +20,7 @@ int main(){
 	{
 		// print whose turn it is
 		printf("Its is %s's turn\n", (current_position->turn=='w')?"White":"Black");
-		current_position = getBestMove(current_position, 7);
+		current_position = getBestMove(current_position, 5);
 		printf("Evaluation of current position: %d\n",current_position->evaluation);
 		displayBoard(current_position);
 	}
