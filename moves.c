@@ -16,6 +16,12 @@ position* getPositionAfterMove(position* pos, move m){
 	new_pos->board[y2][x2] = moving_piece;
 	new_pos->turn = (pos->turn=='w')?'b':'w';
 	new_pos->currentMove = m;
+	if(moving_piece=='P' && y2 == 0){
+		new_pos->board[y2][x2] = 'Q';
+	}
+	if(moving_piece=='p' && y2 == BOARD_SIZE-1){
+		new_pos->board[y2][x2] = 'q';
+	}
 	return new_pos;
 }
 
@@ -40,6 +46,10 @@ move* possibleNextMoves(position* pos){
 						m = newMove(i,j,i,j-1);
 						movelist[l] = m; l++;
 					}
+					if(j==BOARD_SIZE-2 && pos->board[j-2][i]=='.'){
+						m = newMove(i,j,i,j-2);
+						movelist[l] = m; l++;
+					}
 					if(isValidCoordinates(i+1,j-1) && isBlackSymbol(pos->board[j-1][i+1])){
 						m = newMove(i,j,i+1,j-1);
 						movelist[l] = m; l++;
@@ -53,6 +63,10 @@ move* possibleNextMoves(position* pos){
 					if(pos->turn=='w') break;
 					if(pos->board[j+1][i]=='.'){
 						m = newMove(i,j,i,j+1);
+						movelist[l] = m; l++;
+					}
+					if(j==1 && pos->board[j+2][i]=='.'){
+						m = newMove(i,j,i,j+2);
 						movelist[l] = m; l++;
 					}
 					if(isValidCoordinates(i+1,j+1) && isWhiteSymbol(pos->board[j+1][i+1])){
