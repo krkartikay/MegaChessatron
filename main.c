@@ -27,16 +27,17 @@ int main(int argc, char const *argv[]){
 		}
 		current_position = getBestMove(current_position, depth);
 		char* c = moveplayed(current_position).coordinates;
-		//displayBoard(current_position);
-		//printf("Evaluation of current position: %d\n",current_position->evaluation);
-		//printf("Move played: %s \n",moveplayed(current_position).coordinates);
+		
+		displayBoard(current_position);
+		
 		if(p%2 == 1){
 			// white's turn
-			printf("%2d. %s\t",(p+1)/2, c);
+			printf("%2d. %s ... \t\t (%d) \n\n",(p+1)/2, c, current_position->evaluation);
 		} else {
 			// black's turn
-			printf("%s\n", c);
+			printf("%2d.    ... %s\t\t (%d)\n\n",p/2, c,  current_position->evaluation);
 		}
+		
 		fflush(stdout);
 		p++;
 	}
