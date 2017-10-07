@@ -12,6 +12,7 @@
 #include <time.h>
 
 #define BOARD_SIZE 8
+#define MAXMOVES 100
 
 // ----------------------
 // prototypes for board.c

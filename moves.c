@@ -25,7 +25,7 @@ position* getPositionAfterMove(position* pos, move m){
 move* possibleNextMoves(position* pos){
 	// i am assuming here that there can be max. 50 moves
 	// possible for each position TODO fixit later
-	move* movelist = malloc(50*sizeof(move));
+	move* movelist = malloc(MAXMOVES*sizeof(move));
 	
 	char piece;
 	move m;
