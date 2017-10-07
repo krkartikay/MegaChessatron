@@ -575,3 +575,22 @@ bool isValidCoordinates(int i, int j){
 		return false;
 	return true;
 }
+
+move moveplayed(position* pos){
+	// Warning -- this fxn does not produce a real 'move'
+	move m = pos->currentMove;
+	int x1=m.coordinates[0]-'a';
+	int y1=8-(m.coordinates[1]-'0');
+	int x2=m.coordinates[2]-'a';
+	int y2=8-(m.coordinates[3]-'0');
+	char moving_piece = pos->board[y2][x2];
+	move newMove;
+	if(moving_piece!='p' && moving_piece !='P')
+		newMove.coordinates[0] = moving_piece;
+	else
+		newMove.coordinates[0] = ' ';
+	newMove.coordinates[1] = m.coordinates[2];
+	newMove.coordinates[2] = m.coordinates[3];
+	newMove.coordinates[3] = '\0';
+	return newMove;
+}

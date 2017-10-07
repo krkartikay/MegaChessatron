@@ -67,6 +67,8 @@ position* getPositionAfterMove(position*, move);
 // function that returns an array of the next possible moves
 move* possibleNextMoves(position*);
 
+move moveplayed(position* pos);
+
 // ----------------------
 // prototypes for evaluate.c
 // ----------------------

@@ -45,13 +45,20 @@ void deletePosition(position* pos){
 
 void displayBoard(position* pos){
 	char line[]="+---+---+---+---+---+---+---+---+";
+	char x = ' ';
 	for(int j=0; j<BOARD_SIZE; j++){
 		printf("%s\n",line);
 		for(int i=0; i<BOARD_SIZE; i++){
+			// uncomment these lines to get black and white squares
+			// i dont like it so i commented it out
+			/*if((i+j)%2 == 1)
+				x = '.';
+			else 
+				x = ' ';*/
 			if(pos->board[j][i]!='.')
-				printf("| %c ",pos->board[j][i]);
+				printf("|%c%c%c",x,pos->board[j][i],x);
 			else
-				printf("|   ");
+				printf("|%c%c%c",x,x,x);
 		}
 		printf("|\n");
 	}
