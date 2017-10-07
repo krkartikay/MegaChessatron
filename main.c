@@ -12,7 +12,7 @@ int main(int argc, char const *argv[]){
 		"........","........","........","PPPPPPPP","RNBQKBNR"};
 	current_position = createNewPosition(initboard);
 	
-	//displayBoard(current_position);
+	displayBoard(current_position);
 
 	int p = 1;
 	// run the till someone doesnt win or 100 moves played
@@ -49,6 +49,7 @@ int main(int argc, char const *argv[]){
 // TODO KING SAFETY
 // TODO tempo
 // TODO pawn structure
+// TODO passed pawns
 // TODO UCI/xBoard protocol
 // TODO licence
 // TODO 3-fold repetition

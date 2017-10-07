@@ -1,5 +1,8 @@
 #include "common.h"
 
+char a[] = "rnbqkbnr";
+char b[] = "RNBQKBNR";
+
 int evaluate(position* pos){
 	// This function always returns who is winning
 	// regardless of whose move it is. I.e. the return
@@ -80,6 +83,39 @@ int evaluate(position* pos){
 				evaluation += 10;
 			else if (isBlackSymbol(piece))
 				evaluation -= 10;
+		}
+	}
+	int j;
+	j = 0;
+	for (int i = 0; i < 8; ++i)
+	{
+		if (pos->board[j][i] == a[i])
+		{
+			evaluation += 3;
+		}
+	}
+	j = 1;
+	for (int i = 3; i < 5; ++i)
+	{
+		if (pos->board[j][i] == 'p')
+		{
+			evaluation += 2;
+		}
+	}
+	j = 7;
+	for (int i = 0; i < 8; ++i)
+	{
+		if (pos->board[j][i] == b[i])
+		{
+			evaluation -= 3;
+		}
+	}
+	j = 6;
+	for (int i = 3; i < 5; ++i)
+	{
+		if (pos->board[j][i] == 'P')
+		{
+			evaluation -= 2;
 		}
 	}
 	return evaluation;
