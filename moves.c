@@ -3,6 +3,39 @@
 position* getPositionAfterMove(position* pos, move m){
 	// if(!isMoveValid(m,pos)) return NULL; 
 	// isMoveValid() function was removed
+	if(m.coordinates[0]=='O'||m.coordinates[0]=='o'){
+		// castling
+		position* new_pos = createNewPosition(pos->board);
+		int j; char k,r,e='.';
+		if (m.coordinates[0]=='O'){
+			// WHITE
+			j = 7;
+			k = 'K';
+			r = 'R';
+		} else {
+			// BLACK
+			j = 0;
+			k = 'k';
+			r = 'r';
+		}
+		if(m.coordinates[2]=='O'||m.coordinates[2]=='o'){
+			// QUEENSIDE
+			new_pos->board[j][4]=e;
+			new_pos->board[j][3]=r;
+			new_pos->board[j][2]=k;
+			new_pos->board[j][1]=e;
+			new_pos->board[j][0]=e;
+		} else {
+			// KINGSIDE
+			new_pos->board[j][4]=e;
+			new_pos->board[j][5]=r;
+			new_pos->board[j][6]=k;
+			new_pos->board[j][7]=e;
+		}
+		new_pos->turn = (pos->turn=='w')?'b':'w';
+		new_pos->currentMove = m;
+		return new_pos;
+	}
 	int x1=m.coordinates[0]-'a';
 	int y1=8-(m.coordinates[1]-'0');
 	int x2=m.coordinates[2]-'a';
@@ -88,6 +121,31 @@ move* possibleNextMoves(position* pos){
 							}
 						}
 					}
+					if(j==7&&i==4&&pos->board[7][4]=='K'&&
+								   pos->board[7][5]=='.'&&
+								   pos->board[7][6]=='.'&&
+								   pos->board[7][7]=='R'){
+						// White Kingside castling 'OO\0\0'
+						move m;
+						m.coordinates[0] = 'O';
+						m.coordinates[1] = 'O';
+						m.coordinates[2] = '\0';
+						m.coordinates[3] = '\0';
+						movelist[l] = m; l++;
+					}
+					if(j==7&&i==4&&pos->board[7][4]=='K'&&
+								   pos->board[7][3]=='.'&&
+								   pos->board[7][2]=='.'&&
+								   pos->board[7][1]=='.'&&
+								   pos->board[7][0]=='R'){
+						// White Queenside castling 'OOO\0'
+						move m;
+						m.coordinates[0] = 'O';
+						m.coordinates[1] = 'O';
+						m.coordinates[2] = 'O';
+						m.coordinates[3] = '\0';
+						movelist[l] = m; l++;
+					}
 					break;
 				case 'k':
 					if(pos->turn=='w') break;
@@ -102,6 +160,32 @@ move* possibleNextMoves(position* pos){
 							}
 						}
 					}
+					if(j==0&&i==4&&pos->board[0][4]=='k'&&
+								   pos->board[0][5]=='.'&&
+								   pos->board[0][6]=='.'&&
+								   pos->board[0][7]=='r'){
+						// Black Kingside castling 'oo\0\0'
+						move m;
+						m.coordinates[0] = 'O';
+						m.coordinates[1] = 'O';
+						m.coordinates[2] = '\0';
+						m.coordinates[3] = '\0';
+						movelist[l] = m; l++;
+					}
+					if(j==0&&i==4&&pos->board[0][4]=='k'&&
+								   pos->board[0][3]=='.'&&
+								   pos->board[0][2]=='.'&&
+								   pos->board[0][1]=='.'&&
+								   pos->board[0][0]=='r'){
+						// Black Queenside castling 'ooo\0'
+						move m;
+						m.coordinates[0] = 'O';
+						m.coordinates[1] = 'O';
+						m.coordinates[2] = 'O';
+						m.coordinates[3] = '\0';
+						movelist[l] = m; l++;
+					}
+					break;
 					break;
 				case 'N':
 					if(pos->turn=='b') break;
@@ -579,6 +663,9 @@ bool isValidCoordinates(int i, int j){
 move moveplayed(position* pos){
 	// Warning -- this fxn does not produce a real 'move'
 	move m = pos->currentMove;
+	if(m.coordinates[0]=='O'||m.coordinates[0]=='o'){
+		return m;
+	}
 	int x1=m.coordinates[0]-'a';
 	int y1=8-(m.coordinates[1]-'0');
 	int x2=m.coordinates[2]-'a';
