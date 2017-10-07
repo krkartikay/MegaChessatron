@@ -36,6 +36,10 @@ typedef struct position {
 	move currentMove;
 } position;
 
+
+#define isWhiteSymbol(x) ('A'<x&&x<'Z')
+#define isBlackSymbol(x) ('a'<x&&x<'z')
+
 // determine weather game has ended or not
 bool isGameRunning(position* pos);
 // if the game has ended; who won?

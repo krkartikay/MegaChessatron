@@ -77,9 +77,10 @@ bool isGameRunning(position* pos){
 		}
 	}
 	move* movelist = possibleNextMoves(pos);
-	if(movelist[0].move)
+	if(movelist[0].move){
 		areThereValidMoves = true;
-	free(movelist);
+		free(movelist);
+	}
 	return isThereAWhiteKing && isThereABlackKing && areThereValidMoves;
 }
 

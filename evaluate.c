@@ -64,5 +64,23 @@ int evaluate(position* pos){
 			}
 		}
 	}
+	for(int j=BOARD_SIZE/2-1; j<BOARD_SIZE/2+1; j++){
+		for(int i=BOARD_SIZE/2-1; i<BOARD_SIZE/2+1; i++){
+			piece = pos->board[j][i];
+			if(isWhiteSymbol(piece))
+				evaluation += 30;
+			else if (isBlackSymbol(piece))
+				evaluation -= 30;
+		}
+	}
+	for(int j=BOARD_SIZE/2-2; j<BOARD_SIZE/2+2; j++){
+		for(int i=BOARD_SIZE/2-2; i<BOARD_SIZE/2+2; i++){
+			piece = pos->board[j][i];
+			if(isWhiteSymbol(piece))
+				evaluation += 10;
+			else if (isBlackSymbol(piece))
+				evaluation -= 10;
+		}
+	}
 	return evaluation;
 }

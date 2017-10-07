@@ -1,8 +1,5 @@
 #include "common.h"
 
-#define isWhiteSymbol(x) ('A'<x&&x<'Z')
-#define isBlackSymbol(x) ('a'<x&&x<'z')
-
 position* getPositionAfterMove(position* pos, move m){
 	// if(!isMoveValid(m,pos)) return NULL; 
 	// isMoveValid() function was removed
@@ -230,7 +227,6 @@ move* possibleNextMoves(position* pos){
 						}
 						x--;
 					}
-					break;
 					x=0; y=1;
 					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
 						||isBlackSymbol(pos->board[j+y][i+x]))){
@@ -274,7 +270,6 @@ move* possibleNextMoves(position* pos){
 						}
 						x--;
 					}
-					break;
 					x=0; y=1;
 					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
 						||isWhiteSymbol(pos->board[j+y][i+x]))){
@@ -404,7 +399,6 @@ move* possibleNextMoves(position* pos){
 						}
 						x--;
 					}
-					break;
 					x=0; y=1;
 					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
 						||isBlackSymbol(pos->board[j+y][i+x]))){
@@ -489,7 +483,6 @@ move* possibleNextMoves(position* pos){
 						}
 						x--;
 					}
-					break;
 					x=0; y=1;
 					while(isValidCoordinates(i+x,j+y) && (pos->board[j+y][i+x]=='.'
 						||isWhiteSymbol(pos->board[j+y][i+x]))){
