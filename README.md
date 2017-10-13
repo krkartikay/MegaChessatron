@@ -1,5 +1,8 @@
-# MegaChessatron
-Megachessatron being built by students of CSE NITH 1st year.
+# PROJECT MEGACHESSATRON
+
+Megachessatron being built by TEAM COS-INIFINTY CSE NITH 1st year.
+
+<img alt="Image of Megachessatron" height=200 src="https://i.imgur.com/2x3xRgM.png">
 
 ## Project Structure
 
@@ -11,8 +14,9 @@ The various files are:
 
   * common.h -- contains all definitions (game state, functions etc).
                 Included by all files.
-  * board.c -- contains code for getting various info about board,
-                finding possible moves, printing board, etc etc.
+
+  * board.c -- contains code for managing structs having board position, printing board, etc etc.
+  * moves.c -- contains code for finding possible moves etc
   * evaluate.c -- contains evaluation function which calculates
                 chances of winning/losing
   * main.c -- contains the user interface, input/output etc.
@@ -31,7 +35,8 @@ works properly, the code should compile and an executable file called
 To run it, simply type `./MegaChessatron`.
 
 On windows you can either try to import the project into DevC++ and
-set the custom Makefile using instructions given here: https://stackoverflow.com/questions/13544684/running-a-project-in-dev-c 
+set the custom Makefile using instructions given here:
+https://stackoverflow.com/questions/13544684/running-a-project-in-dev-c 
 or you may use either the git shell or cygwin to get a linux shell in windows.
 
 ## How to contribute to the code

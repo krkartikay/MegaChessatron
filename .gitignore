@@ -1,3 +1,18 @@
+# Main Executable
+MegaChessatron
+
+# vim swap files
+*.swp
+
+# temporary output data files
+data.txt
+
+# testing C file
+testing.c
+
+# sublime files
+*sublime*
+
 # Prerequisites
 *.d
 
