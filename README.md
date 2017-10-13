@@ -12,7 +12,7 @@ The various files are:
   * common.h -- contains all definitions (game state, functions etc).
                 Included by all files.
   * board.c -- contains code for getting various info about board,
-                finding possible moves, prining board, etc etc.
+                finding possible moves, printing board, etc etc.
   * evaluate.c -- contains evaluation function which calculates
                 chances of winning/losing
   * main.c -- contains the user interface, input/output etc.
