@@ -14,7 +14,8 @@ The various files are:
 
   * common.h -- contains all definitions (game state, functions etc).
                 Included by all files.
-  * board.c -- contains code for managing structs having board position
+
+  * board.c -- contains code for managing structs having board position, printing board, etc etc.
   * moves.c -- contains code for finding possible moves etc
   * evaluate.c -- contains evaluation function which calculates
                 chances of winning/losing
