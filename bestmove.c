@@ -30,6 +30,82 @@ SOFTWARE.
 
 #include "common.h"
 
+typedef struct thd_args
+{
+	position* initialPos;
+	int plyDepth;
+} thd_args;
+
+void* singleThread(void* args){
+	thd_args* a = (thd_args*) args;
+	position* p = a->initialPos;
+	int d = a->plyDepth;
+	position* z = getBestMove(p,d);
+	pthread_exit(z);
+}
+
+position* getBestMove_threaded(position* initialPos, int plyDepth){
+	// this fxn must be run at top level
+	// i.e. initialPos is not ended and plydepth>1
+	move* movelist = possibleNextMoves(initialPos);
+	int i=0;
+	move x=movelist[i];
+	position** nodesList = malloc(MAXMOVES*sizeof(position));
+	while(x.move){
+		nodesList[i] = getPositionAfterMove(initialPos,x);
+		i++;
+		x = movelist[i];
+	}
+	nodesList[i] = NULL;
+	int noMoves = i;
+	// evaluate all positions in seperate threads now
+	pthread_t *threads = malloc(noMoves*sizeof(pthread_t));
+	thd_args* args = malloc(noMoves*sizeof(thd_args));
+	position** returnList = malloc(noMoves*sizeof(position*));
+	for (int i = 0; i < noMoves; ++i)
+	{
+		args[i].initialPos = initialPos;
+		args[i].plyDepth = plyDepth;
+		if(pthread_create(threads+i,NULL,singleThread,args+i)){
+			printf("Error in creating thread\n");
+		}
+	}
+	for (int i = 0; i < noMoves; ++i)
+	{
+		pthread_join(threads[i],(void**)&returnList[i]);
+		position* best_eval = returnList[i];
+		nodesList[i]->evaluation = best_eval->evaluation;
+		deletePosition(best_eval);
+	}
+	// ... and now choose the best one ACCORDING TO THE TURN [COPYPASTE]
+	position* best_position = nodesList[0];
+	if(initialPos->turn=='w'){
+		int max_eval = nodesList[0]->evaluation;
+		for(i=0;nodesList[i]!=NULL;i++){
+			if(max_eval<nodesList[i]->evaluation){
+				max_eval = nodesList[i]->evaluation;
+				best_position = nodesList[i];
+			}
+		}
+	} else {
+		int min_eval = nodesList[0]->evaluation;
+		for(i=0;nodesList[i]!=NULL;i++){
+			if(min_eval>nodesList[i]->evaluation){
+				min_eval = nodesList[i]->evaluation;
+				best_position = nodesList[i];
+			}
+		}
+	}
+	position* ret = createNewPosition(best_position->board);
+	*ret = *best_position;
+	for(i=0;nodesList[i]!=NULL;i++){
+		deletePosition(nodesList[i]);
+	}
+	free(nodesList);
+	free(movelist);
+	return ret;
+}
+
 position* getBestMove(position* initialPos, int plyDepth){
 	if(!isGameRunning(initialPos)){
 		int i = 0;

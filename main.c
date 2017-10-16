@@ -56,7 +56,7 @@ int main(int argc, char const *argv[]){
 		{
 			depth = atoi(argv[1]);
 		}
-		current_position = getBestMove(current_position, depth);
+		current_position = getBestMove_threaded(current_position, depth);
 		char* c = moveplayed(current_position).coordinates;
 		
 		displayBoard(current_position);

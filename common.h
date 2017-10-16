@@ -40,6 +40,7 @@ SOFTWARE.
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+#include <pthread.h>
 
 #define BOARD_SIZE 8
 #define MAXMOVES 100
@@ -115,6 +116,7 @@ int evaluate(position*);
 // gets best move from given position
 // searches upto given ply depth
 position* getBestMove(position* pos, int plyDepth);
+position* getBestMove_threaded(position* initialPos, int plyDepth);
 
 // for testing -- in testing.c
 // runs in place of main if building

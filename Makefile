@@ -28,7 +28,7 @@
 
 
 OBJS = board.o evaluate.o main.o bestmove.o moves.o
-FLAGS =
+FLAGS = -pthread
 
 all: MegaChessatron
 
