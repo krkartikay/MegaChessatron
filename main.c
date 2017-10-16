@@ -37,7 +37,12 @@ int main(int argc, char const *argv[]){
 	return 0;
 	#endif
 	//what level you selected
-	printf("LEVEL = %s \n",argv[1]);
+	if(argv[1] != '\0'){
+		printf("LEVEL = %s \n",argv[1]);
+	}
+	else{
+		puts("LEVEL = 4 (default)\n");
+	}
 
 	// Setup intial position
 	position *current_position;
