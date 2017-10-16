@@ -51,14 +51,11 @@ position* getBestMove_threaded(position* initialPos, int plyDepth){
 	int i=0;
 	move x=movelist[i];
 	position** nodesList = malloc(MAXMOVES*sizeof(position));
-	while(x.move){
-		nodesList[i] = getPositionAfterMove(initialPos,x);
-		i++;
-		x = movelist[i];
-	}
-	nodesList[i] = NULL;
-	int noMoves = i;
-	// evaluate all positions in seperate threads now
+	expandnode(nodesList,movelist,initialPos);
+	int noMoves;
+	while(movelist[noMoves++].move);
+	// CREATE THREADS AND RECURSE
+	// MAIN CODE BEGINS HERE
 	pthread_t *threads = malloc(noMoves*sizeof(pthread_t));
 	thd_args* args = malloc(noMoves*sizeof(thd_args));
 	position** returnList = malloc(noMoves*sizeof(position*));
@@ -77,30 +74,12 @@ position* getBestMove_threaded(position* initialPos, int plyDepth){
 		nodesList[i]->evaluation = best_eval->evaluation;
 		deletePosition(best_eval);
 	}
-	// ... and now choose the best one ACCORDING TO THE TURN [COPYPASTE]
-	position* best_position = nodesList[0];
-	if(initialPos->turn=='w'){
-		int max_eval = nodesList[0]->evaluation;
-		for(i=0;nodesList[i]!=NULL;i++){
-			if(max_eval<nodesList[i]->evaluation){
-				max_eval = nodesList[i]->evaluation;
-				best_position = nodesList[i];
-			}
-		}
-	} else {
-		int min_eval = nodesList[0]->evaluation;
-		for(i=0;nodesList[i]!=NULL;i++){
-			if(min_eval>nodesList[i]->evaluation){
-				min_eval = nodesList[i]->evaluation;
-				best_position = nodesList[i];
-			}
-		}
-	}
+	// MAIN CODE ENDS HERE
+	// CHOOSE BESTMOVE AND RETURN
+	position* best_position = findminormax(initialPos, nodesList);
 	position* ret = createNewPosition(best_position->board);
 	*ret = *best_position;
-	for(i=0;nodesList[i]!=NULL;i++){
-		deletePosition(nodesList[i]);
-	}
+	deleteAllNodes(nodesList);
 	free(nodesList);
 	free(movelist);
 	return ret;
