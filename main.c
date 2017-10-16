@@ -36,6 +36,8 @@ int main(int argc, char const *argv[]){
 	runTests();
 	return 0;
 	#endif
+	//what level you selected
+	printf("LEVEL = %s \n",argv[1]);
 
 	// Setup intial position
 	position *current_position;
