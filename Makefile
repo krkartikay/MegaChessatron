@@ -27,7 +27,8 @@
 #SOFTWARE.
 
 
-OBJS = board.o evaluate.o main.o bestmove.o moves.o
+
+OBJS = board.o evaluate.o main.o bestmove.o moves.o loops.o
 FLAGS = -pthread
 
 all: MegaChessatron

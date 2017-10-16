@@ -45,6 +45,7 @@ SOFTWARE.
 #define BOARD_SIZE 8
 #define MAXMOVES 100
 
+
 // ----------------------
 // prototypes for board.c
 // ----------------------
@@ -68,6 +69,11 @@ typedef struct position {
 	move currentMove;
 } position;
 
+// loops.c
+void expandnode(position** nodesList, move* movelist, position* initialPos);
+position* findminormax(position* initialPos, position** nodesList);
+void deleteAllNodes(position** nodesList);
+position* evaluation_at_end(position* initialPos);
 
 #define isWhiteSymbol(x) ('A'<x&&x<'Z')
 #define isBlackSymbol(x) ('a'<x&&x<'z')
