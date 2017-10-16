@@ -32,6 +32,7 @@ SOFTWARE.
 
 typedef struct thd_args
 {
+	int threadno;
 	position* initialPos;
 	int plyDepth;
 } thd_args;
@@ -41,6 +42,9 @@ void* singleThread(void* args){
 	position* p = a->initialPos;
 	int d = a->plyDepth;
 	position* z = getBestMove(p,d);
+	#ifdef DEBUG
+	printf("called getBestMove(%p,%d)\n",p,d);
+	#endif
 	pthread_exit(z);
 }
 
@@ -59,9 +63,13 @@ position* getBestMove_threaded(position* initialPos, int plyDepth){
 	position** returnList = malloc(noMoves*sizeof(position*));
 	for (int i = 0; i < noMoves; ++i)
 	{
-		args[i].initialPos = initialPos;
+		args[i].initialPos = nodesList[i];
 		args[i].plyDepth = plyDepth;
-		if(pthread_create(threads+i,NULL,singleThread,args+i)){
+		args[i].threadno = i;
+		#ifdef DEBUG
+		printf("Calling Singlethread on args[%d] with %p \n", i, initialPos);
+		#endif
+		if(pthread_create(threads+i,NULL,singleThread,&args[i])){
 			printf("Error in creating thread\n");
 		}
 	}
@@ -129,5 +137,11 @@ position* getBestMove(position* initialPos, int plyDepth){
 	free(movelist);
 
 	// return best position
+
+	#ifdef DEBUG
+		if(plyDepth==4)
+			;//printf("Returning position %p with eval = %d \n", ret, ret->evaluation);
+	#endif
+
 	return ret;
 }
