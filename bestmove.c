@@ -51,9 +51,7 @@ position* getBestMove_threaded(position* initialPos, int plyDepth){
 	int i=0;
 	move x=movelist[i];
 	position** nodesList = malloc(MAXMOVES*sizeof(position));
-	expandnode(nodesList,movelist,initialPos);
-	int noMoves;
-	while(movelist[noMoves++].move);
+	int noMoves = expandnode(nodesList,movelist,initialPos);
 	// CREATE THREADS AND RECURSE
 	// MAIN CODE BEGINS HERE
 	pthread_t *threads = malloc(noMoves*sizeof(pthread_t));

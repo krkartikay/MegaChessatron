@@ -70,7 +70,7 @@ typedef struct position {
 } position;
 
 // loops.c
-void expandnode(position** nodesList, move* movelist, position* initialPos);
+int expandnode(position** nodesList, move* movelist, position* initialPos);
 position* findminormax(position* initialPos, position** nodesList);
 void deleteAllNodes(position** nodesList);
 position* evaluation_at_end(position* initialPos);

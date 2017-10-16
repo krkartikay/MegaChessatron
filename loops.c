@@ -1,6 +1,6 @@
 #include "common.h"
 
-void expandnode(position** nodesList, move* movelist, position* initialPos){
+int expandnode(position** nodesList, move* movelist, position* initialPos){
 	int i=0;
 	move x=movelist[i];
 	while(x.move){
@@ -9,6 +9,7 @@ void expandnode(position** nodesList, move* movelist, position* initialPos){
 		x = movelist[i];
 	}
 	nodesList[i] = NULL;
+	return i;
 }
 
 position* findminormax(position* initialPos, position** nodesList){
