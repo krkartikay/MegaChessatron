@@ -34,6 +34,9 @@ SOFTWARE.
 char a[] = "rnbqkbnr";
 char b[] = "RNBQKBNR";
 
+#define KINGSAFTEYCONST 10
+#define CENTERCONTROLCONST 4
+
 int pieceCountValue(char piece){
 	// returns piece value, +ve if white, -ve if black
 	switch(piece){
@@ -66,12 +69,12 @@ int pieceCountValue(char piece){
 	}
 }
 
-int pieceInCenterValue(char piece){
+int pieceSafetyValue(char piece){
 	switch(piece){
 		case 'P':
-			return +120;
+			return +200;
 		case 'p':
-			return -120;
+			return -200;
 		case 'R':
 			return +400;
 		case 'r':
@@ -85,13 +88,44 @@ int pieceInCenterValue(char piece){
 		case 'b':
 			return -350;
 		case 'Q':
-			return +300;
+			return +400;
 		case 'q':
-			return -300;
+			return -400;
 		case 'K':
 			return +200;
 		case 'k':
 			return -200;
+		case '.':
+			return 0;
+	}
+}
+
+int piecePowerValue(char piece){
+	switch(piece){
+		case 'P':
+			return +70;
+		case 'p':
+			return -70;
+		case 'R':
+			return +500;
+		case 'r':
+			return -500;
+		case 'N':
+			return +350;
+		case 'n':
+			return -350;
+		case 'B':
+			return +350;
+		case 'b':
+			return -350;
+		case 'Q':
+			return +1000;
+		case 'q':
+			return -1000;
+		case 'K':
+			return 0;
+		case 'k':
+			return 0;
 		case '.':
 			return 0;
 	}
@@ -122,75 +156,49 @@ int evaluate(position* pos){
 	for(int j=0; j<BOARD_SIZE; j++){
 		for(int i=0; i<BOARD_SIZE; i++){
 			piece = pos->board[j][i];
+			if (piece=='K') {
+				Kx = i; Ky = j;
+			}
+			if (piece=='k') {
+				kx = i; ky = j;
+			}
 			evaluation += pieceCountValue(piece);
 		}
 	}
-	
 	
 	// center control
 	int x=BOARD_SIZE/2, y=BOARD_SIZE/2;
 	for(int j=-2; j<2; j++){
 		for(int i=-2; i<2; i++){
 			piece = pos->board[j+y][i+x];
-			if(i*i+j*j==2)
-				evaluation += pieceInCenterValue(piece)/pos->moveno;
+			if((i==-1||i==0)&&(j==-1||j==0))
+				evaluation += pieceSafetyValue(piece)/(CENTERCONTROLCONST);
 			else
-				evaluation += pieceInCenterValue(piece)/(2*pos->moveno);
+				evaluation += pieceSafetyValue(piece)/(CENTERCONTROLCONST*2);
 		}
 	}
-	/*
-	// tempo
-	int j;
-	j = 0;
-	for (int i = 0; i < 8; ++i)
-	{
-		if (pos->board[j][i] == a[i])
-		{
-			evaluation += 3;
-		}
-	}
-	j = 1;
-	for (int i = 3; i < 5; ++i)
-	{
-		if (pos->board[j][i] == 'p')
-		{
-			evaluation += 2;
-		}
-	}
-	j = 7;
-	for (int i = 0; i < 8; ++i)
-	{
-		if (pos->board[j][i] == b[i])
-		{
-			evaluation -= 3;
-		}
-	}
-	j = 6;
-	for (int i = 3; i < 5; ++i)
-	{
-		if (pos->board[j][i] == 'P')
-		{
-			evaluation -= 2;
-		}
-	}
-
+	
 	// KING SAFETY
+	char piece1;
+	char piece2;
 	for (int i = -2; i < 2; ++i){
 		for (int j = -2; j < 2; ++j){
-			if(isValidCoordinates(i+Kx,j+Ky) && isWhiteSymbol(pos->board[j+Ky][i+Kx])){
-				evaluation += 30;
+			piece1 = pos->board[j+Ky][i+Kx];
+			piece2 = pos->board[j+ky][i+kx];
+			if(isValidCoordinates(i+Kx,j+Ky) && isWhiteSymbol(piece1)){
+				evaluation += pieceSafetyValue(piece1)/KINGSAFTEYCONST;
 			}
-			if(isValidCoordinates(i+Kx,j+Ky) && isBlackSymbol(pos->board[j+Ky][i+Kx])){
-				evaluation -= 50;
+			if(isValidCoordinates(i+Kx,j+Ky) && isBlackSymbol(piece1)){
+				evaluation += piecePowerValue(piece1)/KINGSAFTEYCONST;
 			}
-			if(isValidCoordinates(i+kx,j+ky) && isWhiteSymbol(pos->board[j+ky][i+kx])){
-				evaluation += 50;
+			if(isValidCoordinates(i+kx,j+ky) && isBlackSymbol(piece2)){
+				evaluation += pieceSafetyValue(piece2)/KINGSAFTEYCONST;
 			}
-			if(isValidCoordinates(i+kx,j+ky) && isBlackSymbol(pos->board[j+ky][i+kx])){
-				evaluation -= 30;
+			if(isValidCoordinates(i+kx,j+ky) && isWhiteSymbol(piece2)){
+				evaluation += piecePowerValue(piece2)/KINGSAFTEYCONST;
 			}
 		}
 	}
-	*/
+	
 	return evaluation;
 }

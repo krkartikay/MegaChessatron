@@ -33,6 +33,9 @@ FLAGS = -pthread -std=c99
 
 all: MegaChessatron
 
+xboard: FLAGS += -DXBOARD -Ofast
+xboard: all
+
 debug: FLAGS += -O0 -g
 debug: all
 
