@@ -6,6 +6,9 @@ MegaChessatron
 
 # temporary output data files
 data.txt
+logfile*
+gmon.out
+callgrind*
 
 # testing C file
 testing.c
