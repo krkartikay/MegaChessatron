@@ -62,6 +62,7 @@ position* createNewPosition(char a[BOARD_SIZE][BOARD_SIZE]){
 	newPos->turn = 'w';
 	newPos->evaluation = 0;
 	newPos->currentMove.move = 0;
+	newPos->moveno=1;
 	for(int j=0; j<BOARD_SIZE; j++){
 		for(int i=0; i<BOARD_SIZE; i++){
 			newPos->board[j][i] = a[j][i];

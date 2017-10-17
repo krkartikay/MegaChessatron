@@ -41,14 +41,17 @@ SOFTWARE.
 #include <stdbool.h>
 #include <time.h>
 #include <pthread.h>
+#include <string.h>
 
 #define BOARD_SIZE 8
 #define MAXMOVES 100
 
-
 // ----------------------
 // prototypes for board.c
 // ----------------------
+
+#define isWhiteSymbol(x) ('A'<x&&x<'Z')
+#define isBlackSymbol(x) ('a'<x&&x<'z')
 
 // representation of a move in algebriac notation like "e2e4"
 typedef union move{
@@ -67,16 +70,8 @@ typedef struct position {
 	char turn; // w for white and b for black
 	int evaluation;
 	move currentMove;
+	unsigned short int moveno;
 } position;
-
-// loops.c
-int expandnode(position** nodesList, move* movelist, position* initialPos);
-position* findminormax(position* initialPos, position** nodesList);
-void deleteAllNodes(position** nodesList);
-position* evaluation_at_end(position* initialPos);
-
-#define isWhiteSymbol(x) ('A'<x&&x<'Z')
-#define isBlackSymbol(x) ('a'<x&&x<'z')
 
 // determine weather game has ended or not
 bool isGameRunning(position* pos);
@@ -90,6 +85,14 @@ void deletePosition(position* pos);
 
 // This function displays the board and prints out move info
 void displayBoard(position* pos);
+
+// ----------------------
+// prototypes for loops.c
+// ----------------------
+int expandnode(position** nodesList, move* movelist, position* initialPos);
+position* findminormax(position* initialPos, position** nodesList);
+void deleteAllNodes(position** nodesList);
+position* evaluation_at_end(position* initialPos);
 
 // ----------------------
 // prototypes for moves.c

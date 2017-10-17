@@ -34,6 +34,69 @@ SOFTWARE.
 char a[] = "rnbqkbnr";
 char b[] = "RNBQKBNR";
 
+int pieceCountValue(char piece){
+	// returns piece value, +ve if white, -ve if black
+	switch(piece){
+		case 'P':
+			return +100;
+		case 'p':
+			return -100;
+		case 'R':
+			return +500;
+		case 'r':
+			return -500;
+		case 'N':
+			return +300;
+		case 'n':
+			return -300;
+		case 'B':
+			return +350;
+		case 'b':
+			return -350;
+		case 'Q':
+			return +900;
+		case 'q':
+			return -900;
+		case 'K':
+			return +100000;
+		case 'k':
+			return -100000;
+		case '.':
+			return 0;
+	}
+}
+
+int pieceInCenterValue(char piece){
+	switch(piece){
+		case 'P':
+			return +120;
+		case 'p':
+			return -120;
+		case 'R':
+			return +400;
+		case 'r':
+			return -400;
+		case 'N':
+			return +300;
+		case 'n':
+			return -300;
+		case 'B':
+			return +350;
+		case 'b':
+			return -350;
+		case 'Q':
+			return +300;
+		case 'q':
+			return -300;
+		case 'K':
+			return +200;
+		case 'k':
+			return -200;
+		case '.':
+			return 0;
+	}
+}
+
 int evaluate(position* pos){
 	// This function always returns who is winning
 	// regardless of whose move it is. I.e. the return
@@ -53,69 +116,30 @@ int evaluate(position* pos){
 		}
 	}
 
-	// count pawns ... black and white
+	// count pieces ... black and white
 	char piece;
+	int Kx,Ky,kx,ky;
 	for(int j=0; j<BOARD_SIZE; j++){
 		for(int i=0; i<BOARD_SIZE; i++){
 			piece = pos->board[j][i];
-			switch(piece){
-				case 'P':
-					evaluation += 100;
-					break;
-				case 'p':
-					evaluation -= 100;
-					break;
-				case 'R':
-					evaluation += 500;
-					break;
-				case 'r':
-					evaluation -= 500;
-					break;
-				case 'N':
-					evaluation += 300;
-					break;
-				case 'n':
-					evaluation -= 300;
-					break;
-				case 'B':
-					evaluation += 350;
-					break;
-				case 'b':
-					evaluation -= 350;
-					break;
-				case 'Q':
-					evaluation += 1000;
-					break;
-				case 'q':
-					evaluation -= 1000;
-					break;
-				/*case 'K':
-					evaluation += 1000000;
-					break;
-				case 'k':
-					evaluation -= 1000000;
-					break;*/
-			}
+			evaluation += pieceCountValue(piece);
 		}
 	}
-	for(int j=BOARD_SIZE/2-1; j<BOARD_SIZE/2+1; j++){
-		for(int i=BOARD_SIZE/2-1; i<BOARD_SIZE/2+1; i++){
-			piece = pos->board[j][i];
-			if(isWhiteSymbol(piece))
-				evaluation += 30;
-			else if (isBlackSymbol(piece))
-				evaluation -= 30;
+	
+	
+	// center control
+	int x=BOARD_SIZE/2, y=BOARD_SIZE/2;
+	for(int j=-2; j<2; j++){
+		for(int i=-2; i<2; i++){
+			piece = pos->board[j+y][i+x];
+			if(i*i+j*j==2)
+				evaluation += pieceInCenterValue(piece)/pos->moveno;
+			else
+				evaluation += pieceInCenterValue(piece)/(2*pos->moveno);
 		}
 	}
-	for(int j=BOARD_SIZE/2-2; j<BOARD_SIZE/2+2; j++){
-		for(int i=BOARD_SIZE/2-2; i<BOARD_SIZE/2+2; i++){
-			piece = pos->board[j][i];
-			if(isWhiteSymbol(piece))
-				evaluation += 10;
-			else if (isBlackSymbol(piece))
-				evaluation -= 10;
-		}
-	}
+	/*
+	// tempo
 	int j;
 	j = 0;
 	for (int i = 0; i < 8; ++i)
@@ -149,5 +173,24 @@ int evaluate(position* pos){
 			evaluation -= 2;
 		}
 	}
+
+	// KING SAFETY
+	for (int i = -2; i < 2; ++i){
+		for (int j = -2; j < 2; ++j){
+			if(isValidCoordinates(i+Kx,j+Ky) && isWhiteSymbol(pos->board[j+Ky][i+Kx])){
+				evaluation += 30;
+			}
+			if(isValidCoordinates(i+Kx,j+Ky) && isBlackSymbol(pos->board[j+Ky][i+Kx])){
+				evaluation -= 50;
+			}
+			if(isValidCoordinates(i+kx,j+ky) && isWhiteSymbol(pos->board[j+ky][i+kx])){
+				evaluation += 50;
+			}
+			if(isValidCoordinates(i+kx,j+ky) && isBlackSymbol(pos->board[j+ky][i+kx])){
+				evaluation -= 30;
+			}
+		}
+	}
+	*/
 	return evaluation;
 }

@@ -84,6 +84,7 @@ position* getPositionAfterMove(position* pos, move m){
 	if(moving_piece=='p' && y2 == BOARD_SIZE-1){
 		new_pos->board[y2][x2] = 'q';
 	}
+	new_pos->moveno = pos->moveno+1;
 	return new_pos;
 }
 
