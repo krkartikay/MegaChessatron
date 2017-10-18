@@ -39,9 +39,9 @@ int main(int argc, char const *argv[]){
 	#endif
 
 	#ifdef XBOARD
-	int rn = rand();
-	char filename[100];
 	#ifdef LOGGING
+	int rn = (int) time(NULL);
+	char filename[100];
 	sprintf(filename,"logfile%d.txt",rn);
 	FILE* logfile = fopen(filename,"w");
 	#endif
