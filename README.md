@@ -15,13 +15,14 @@ The various files are:
   * common.h -- contains all definitions (game state, functions etc).
                 Included by all files.
 
-  * board.c -- contains code for managing structs having board position, printing board, etc etc.
+  * board.c -- contains code for managing structs having board position, printing board, etc etc
   * moves.c -- contains code for finding possible moves etc
   * evaluate.c -- contains evaluation function which calculates
                 chances of winning/losing
   * main.c -- contains the user interface, input/output etc.
   * bestmove.c -- contains commands to find best move according
                 to minimax algorithm.
+  * loops.c -- contains helper functions for bestmove
   * Makefile -- config file for automatic building/compiling.
 
 ## How to Compile and Run the code
@@ -38,6 +39,14 @@ On windows you can either try to import the project into DevC++ and
 set the custom Makefile using instructions given here:
 https://stackoverflow.com/questions/13544684/running-a-project-in-dev-c 
 or you may use either the git shell or cygwin to get a linux shell in windows.
+
+## How to run this program in a GUI (Xboard/Winboard protocol)
+You can install Arena Chess Program which is a GUI for various chess
+engines. Compile the code with "make xboard" and then you will get
+an executable file "MegaChessatron". Open Arena and go into "load engine"
+or install engine option and choose the executable file and set protocol
+to XBoard or Winboard v1. Then use the engine GUI to either play with
+the program yourself or arrange an engine-vs-engine match.
 
 ## How to contribute to the code
 In order to contribute to the code, you have to first fork this repository
