@@ -146,6 +146,9 @@ int main(int argc, char const *argv[]){
 			position* new_pos = getPositionAfterMove(current_position,m);
 			deletePosition(current_position);
 			current_position = new_pos;
+			#ifdef LOGGING
+			log_board(logfile, current_position);
+			#endif
 			// run
 			current_position = getBestMove_threaded(current_position, depth);
 			char* c = current_position->currentMove.coordinates;
@@ -155,6 +158,9 @@ int main(int argc, char const *argv[]){
 			#endif
 			p++;
 		}
+		#ifdef LOGGING
+		log_board(logfile, current_position);
+		#endif
 	}
 	
 	deletePosition(current_position);

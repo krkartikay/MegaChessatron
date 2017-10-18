@@ -109,7 +109,7 @@ move* possibleNextMoves(position* pos){
 						m = newMove(i,j,i,j-1);
 						movelist[l] = m; l++;
 					}
-					if(j==BOARD_SIZE-2 && pos->board[j-2][i]=='.'){
+					if(j==BOARD_SIZE-2 && pos->board[j-2][i]=='.'&& pos->board[j-1][i]=='.'){
 						m = newMove(i,j,i,j-2);
 						movelist[l] = m; l++;
 					}
@@ -128,7 +128,7 @@ move* possibleNextMoves(position* pos){
 						m = newMove(i,j,i,j+1);
 						movelist[l] = m; l++;
 					}
-					if(j==1 && pos->board[j+2][i]=='.'){
+					if(j==1 && pos->board[j+2][i]=='.'&& pos->board[j+1][i]=='.'){
 						m = newMove(i,j,i,j+2);
 						movelist[l] = m; l++;
 					}

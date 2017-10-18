@@ -97,6 +97,33 @@ void displayBoard(position* pos){
 	printf("%s\n",line);
 }
 
+void log_board(FILE* f,position* pos){
+	if (!pos)
+	{
+		fprintf(f, "No Position initialised.\n");
+		return;
+	}
+	char line[]="+---+---+---+---+---+---+---+---+";
+	char x = ' ';
+	for(int j=0; j<BOARD_SIZE; j++){
+		fprintf(f,"%s\n",line);
+		for(int i=0; i<BOARD_SIZE; i++){
+			// uncomment these lines to get black and white squares
+			// i dont like it so i commented it out
+			/*if((i+j)%2 == 1)
+				x = '.';
+			else 
+				x = ' ';*/
+			if(pos->board[j][i]!='.')
+				fprintf(f,"|%c%c%c",x,pos->board[j][i],x);
+			else
+				fprintf(f,"|%c%c%c",x,x,x);
+		}
+		fprintf(f,"|\n");
+	}
+	fprintf(f,"%s\n",line);
+}
+
 bool isGameRunning(position* pos){
 	// true if running
 	// false if ended

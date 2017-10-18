@@ -85,7 +85,7 @@ void deletePosition(position* pos);
 
 // This function displays the board and prints out move info
 void displayBoard(position* pos);
-
+void log_board(FILE*,position*);
 // ----------------------
 // prototypes for loops.c
 // ----------------------
