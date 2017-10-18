@@ -36,10 +36,13 @@ all: MegaChessatron
 xboard: FLAGS += -DXBOARD -Ofast
 xboard: all
 
+log-xboard: FLAGS += -DXBOARD -DLOGGING
+log-xboard: all
+
 debug: FLAGS += -O0 -g
 debug: all
 
-testdebug: FLAGS+= -O0 -g -DDEBUG
+testdebug: FLAGS+= -O0 -g -DTESTING
 testdebug: OBJS+= testing.o
 testdebug: testing.o all
 

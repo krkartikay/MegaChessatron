@@ -33,7 +33,7 @@ SOFTWARE.
 
 int main(int argc, char const *argv[]){
 	
-	#ifdef DEBUG
+	#ifdef TESTING
 	runTests();
 	return 0;
 	#endif
@@ -41,7 +41,7 @@ int main(int argc, char const *argv[]){
 	#ifdef XBOARD
 	int rn = rand();
 	char filename[100];
-	#ifdef DEBUG
+	#ifdef LOGGING
 	sprintf(filename,"logfile%d.txt",rn);
 	FILE* logfile = fopen(filename,"w");
 	#endif
@@ -51,7 +51,7 @@ int main(int argc, char const *argv[]){
 	char initboard[8][8]={"rnbqkbnr","pppppppp","........",
 		"........","........","........","PPPPPPPP","RNBQKBNR"};
 	setbuf(stdout, NULL);
-	#ifdef DEBUG
+	#ifdef LOGGING
 	setbuf(logfile, NULL);
 	#endif
 	//displayBoard(current_position);
@@ -65,7 +65,7 @@ int main(int argc, char const *argv[]){
 	while(1)
 	{
 		scanf("%s",inp);
-		#ifdef DEBUG
+		#ifdef LOGGING
 		fprintf(logfile, "<<< %s\n", inp);
 		#endif
 		if(inputs_to_ignore>0){
@@ -134,7 +134,7 @@ int main(int argc, char const *argv[]){
 			current_position = getBestMove_threaded(current_position, depth);
 			char* c = current_position->currentMove.coordinates;
 			printf("move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
-			#ifdef DEBUG
+			#ifdef LOGGING
 			fprintf(logfile, ">>> move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
 			#endif
 		} else {
@@ -150,7 +150,7 @@ int main(int argc, char const *argv[]){
 			current_position = getBestMove_threaded(current_position, depth);
 			char* c = current_position->currentMove.coordinates;
 			printf("move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
-			#ifdef DEBUG
+			#ifdef LOGGING
 			fprintf(logfile, ">>> move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
 			#endif
 			p++;
