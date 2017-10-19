@@ -68,5 +68,5 @@ clean:
 	-@rm logfile* 2>/dev/null || echo "Cleaning logfiles"
 	-@rm data.txt 2>/dev/null || echo "Cleaning data files"
 	-@rm gmon.out 2>/dev/null || echo "Cleaning profiler output"
-	-@rm callgrind 2>/dev/null || echo "Cleaning call graphs"
+	-@rm callgrind* 2>/dev/null || echo "Cleaning call graphs"
 	@echo "Cleaned all"
