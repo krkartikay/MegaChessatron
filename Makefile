@@ -27,7 +27,7 @@
 #SOFTWARE.
 
 
-
+CC = gcc # change to clang if u want
 OBJS = board.o evaluate.o main.o bestmove.o moves.o loops.o
 FLAGS = -pthread -std=c99
 
@@ -52,12 +52,21 @@ optimised: MegaChessatron
 fast: FLAGS += -Ofast
 fast: MegaChessatron
 
+profiling: CC = clang
+profiling: FLAGS += -g -pg -O0
+profiling: all
+
 MegaChessatron: $(OBJS)
-	gcc -o MegaChessatron $(FLAGS) $(OBJS)
+	$(CC) -o MegaChessatron $(FLAGS) $(OBJS)
 
 %.o: %.c common.h
-	gcc $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	rm *.o
-	rm MegaChessatron
+	-@rm *.o 2>/dev/null || echo "Cleaning object files"
+	-@rm MegaChessatron 2>/dev/null || echo "Cleaning Main executable"
+	-@rm logfile* 2>/dev/null || echo "Cleaning logfiles"
+	-@rm data.txt 2>/dev/null || echo "Cleaning data files"
+	-@rm gmon.out 2>/dev/null || echo "Cleaning profiler output"
+	-@rm callgrind 2>/dev/null || echo "Cleaning call graphs"
+	@echo "Cleaned all"
