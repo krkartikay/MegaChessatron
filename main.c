@@ -137,7 +137,22 @@ int main(int argc, char const *argv[]){
 			#ifdef LOGGING
 			fprintf(logfile, ">>> move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
 			#endif
+			#ifdef LOGGING
+			log_board(logfile, current_position);
+			#endif
 		} else {
+			if(strcmp(inp,"e1g1")==0){
+				strcpy(inp,"OO");
+			}
+			if(strcmp(inp,"e1c1")==0){
+				strcpy(inp,"OOO");
+			}
+			if(strcmp(inp,"e8g8")==0){
+				strcpy(inp,"oo");
+			}
+			if(strcmp(inp,"e8c8")==0){
+				strcpy(inp,"ooo");
+			}
 			move m;
 			m.coordinates[0] = inp[0];
 			m.coordinates[1] = inp[1];
@@ -156,11 +171,11 @@ int main(int argc, char const *argv[]){
 			#ifdef LOGGING
 			fprintf(logfile, ">>> move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
 			#endif
+			#ifdef LOGGING
+			log_board(logfile, current_position);
+			#endif
 			p++;
 		}
-		#ifdef LOGGING
-		log_board(logfile, current_position);
-		#endif
 	}
 	
 	deletePosition(current_position);

@@ -16,6 +16,10 @@ testing.c
 # sublime files
 *sublime*
 
+# VSCODE
+.vscode/*
+.vscode
+
 # Prerequisites
 *.d
 

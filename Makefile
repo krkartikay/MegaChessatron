@@ -36,7 +36,7 @@ all: MegaChessatron
 xboard: FLAGS += -DXBOARD -Ofast
 xboard: all
 
-log-xboard: FLAGS += -g -DXBOARD -DLOGGING
+log-xboard: FLAGS += -g -Ofast -DXBOARD -DLOGGING
 log-xboard: all
 
 debug: FLAGS += -O0 -g
