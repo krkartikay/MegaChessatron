@@ -60,7 +60,9 @@ int main(int argc, char const *argv[]){
 	int depth = 4;
 	char inp[100];
 	int inputs_to_ignore = 0;
-
+	#ifdef LOGGING
+	char *ch;
+	#endif
 	// run the till someone doesnt win or 100 moves played
 	while(1)
 	{
@@ -135,10 +137,16 @@ int main(int argc, char const *argv[]){
 			char* c = current_position->currentMove.coordinates;
 			printf("move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
 			#ifdef LOGGING
+			ch = moveplayed(current_position).coordinates;
 			fprintf(logfile, ">>> move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
-			#endif
-			#ifdef LOGGING
 			log_board(logfile, current_position);
+			if(p%2 == 1){
+				// white's turn
+				fprintf(logfile,"%2d. %s ... \t\t (%d) \n\n",(p+1)/2, ch, current_position->evaluation);
+			} else {
+				// black's turn
+				fprintf(logfile,"%2d.    ... %s\t\t (%d)\n\n",p/2, ch,  current_position->evaluation);
+			}
 			#endif
 		} else {
 			if(strcmp(inp,"e1g1")==0){
@@ -162,17 +170,46 @@ int main(int argc, char const *argv[]){
 			deletePosition(current_position);
 			current_position = new_pos;
 			#ifdef LOGGING
+			ch = moveplayed(current_position).coordinates;
 			log_board(logfile, current_position);
+			if(p%2 == 1){
+				// white's turn
+				fprintf(logfile,"%2d. %s ... \t\t (%d) \n\n",(p+1)/2, ch, current_position->evaluation);
+			} else {
+				// black's turn
+				fprintf(logfile,"%2d.    ... %s\t\t (%d)\n\n",p/2, ch,  current_position->evaluation);
+			}
 			#endif
+			p++;
 			// run
 			current_position = getBestMove_threaded(current_position, depth);
 			char* c = current_position->currentMove.coordinates;
-			printf("move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
+			char mv[5];
+			mv[0]=c[0];mv[1]=c[1];mv[2]=c[2];mv[3]=c[3];mv[4]='\0';
+			if(strcmp(mv,"OO")==0){
+				strcpy(mv,"e1g1");
+			}
+			if(strcmp(mv,"OOO")==0){
+				strcpy(mv,"e1c1");
+			}
+			if(strcmp(mv,"oo")==0){
+				strcpy(mv,"e8g8");
+			}
+			if(strcmp(mv,"ooo")==0){
+				strcpy(mv,"e8c8");
+			}
+			printf("move %s\n", mv);
 			#ifdef LOGGING
+			ch = moveplayed(current_position).coordinates;
 			fprintf(logfile, ">>> move %c%c%c%c\n", c[0],c[1],c[2],c[3]);
-			#endif
-			#ifdef LOGGING
 			log_board(logfile, current_position);
+			if(p%2 == 1){
+				// white's turn
+				fprintf(logfile,"%2d. %s ... \t\t (%d) \n\n",(p+1)/2, ch, current_position->evaluation);
+			} else {
+				// black's turn
+				fprintf(logfile,"%2d.    ... %s\t\t (%d)\n\n",p/2, ch,  current_position->evaluation);
+			}
 			#endif
 			p++;
 		}

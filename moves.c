@@ -199,8 +199,8 @@ move* possibleNextMoves(position* pos){
 								   pos->board[0][7]=='r'){
 						// Black Kingside castling 'oo\0\0'
 						move m;
-						m.coordinates[0] = 'O';
-						m.coordinates[1] = 'O';
+						m.coordinates[0] = 'o';
+						m.coordinates[1] = 'o';
 						m.coordinates[2] = '\0';
 						m.coordinates[3] = '\0';
 						movelist[l] = m; l++;
@@ -212,9 +212,9 @@ move* possibleNextMoves(position* pos){
 								   pos->board[0][0]=='r'){
 						// Black Queenside castling 'ooo\0'
 						move m;
-						m.coordinates[0] = 'O';
-						m.coordinates[1] = 'O';
-						m.coordinates[2] = 'O';
+						m.coordinates[0] = 'o';
+						m.coordinates[1] = 'o';
+						m.coordinates[2] = 'o';
 						m.coordinates[3] = '\0';
 						movelist[l] = m; l++;
 					}
