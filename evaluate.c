@@ -34,8 +34,8 @@ SOFTWARE.
 char a[] = "rnbqkbnr";
 char b[] = "RNBQKBNR";
 
-#define KINGSAFTEYCONST 10
-#define CENTERCONTROLCONST 4
+#define KINGSAFTEYCONST 50
+#define EVAL_PER_SQUARE 5
 
 int pieceCountValue(char piece){
 	// returns piece value, +ve if white, -ve if black
@@ -166,39 +166,436 @@ int evaluate(position* pos){
 		}
 	}
 	
-	// center control
-	int x=BOARD_SIZE/2, y=BOARD_SIZE/2;
-	for(int j=-2; j<2; j++){
-		for(int i=-2; i<2; i++){
-			piece = pos->board[j+y][i+x];
-			if((i==-1||i==0)&&(j==-1||j==0))
-				evaluation += pieceSafetyValue(piece)/(CENTERCONTROLCONST);
+	// squares controlled
+	for(int j=0; j<BOARD_SIZE; j++){
+		for(int i=0; i<BOARD_SIZE; i++){
+			piece = pos->board[j][i];
+			int l=0,x=0,y=0;
+			switch(piece){
+				case '.':
+					// no move possible
+					break;
+				case 'P':
+					if(pos->board[j-1][i]=='.'){
+						l++;
+					}
+					if(j==BOARD_SIZE-2 && pos->board[j-2][i]=='.'&& pos->board[j-1][i]=='.'){
+						l++;
+					}
+					if(isValidCoordinates(i+1,j-1)){
+						l++;
+					}
+					if(isValidCoordinates(i-1,j-1)){
+						l++;
+					}
+					break;
+				case 'p':
+					if(pos->board[j+1][i]=='.'){
+						l++;
+					}
+					if(j==1 && pos->board[j+2][i]=='.'&& pos->board[j+1][i]=='.'){
+						l++;
+					}
+					if(isValidCoordinates(i+1,j+1)){
+						l++;
+					}
+					if(isValidCoordinates(i-1,j+1)){
+						l++;
+					}
+					break;
+				case 'K':
+					break;
+				case 'k':
+					break;
+				case 'N':
+					x = 1; y = 2;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = 2; y = 1;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = 1; y = -2;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = 2; y = -1;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = -1; y = 2;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = -2; y = 1;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = -1; y = -2;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = -2; y = -1;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					break;
+				case 'n':
+					x = 1; y = 2;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = 2; y = 1;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = 1; y = -2;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = 2; y = -1;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = -1; y = 2;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = -2; y = 1;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = -1; y = -2;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					x = -2; y = -1;
+					if(isValidCoordinates(i+x,j+y)){
+						l++;
+					}
+					break;
+				case 'R':
+					x=1; y=0;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++;
+					}
+					x=-1; y=0;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--;
+					}
+					x=0; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						y++;
+					}
+					x=0; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						y--;
+					}
+					break;
+				case 'r':
+					x=1; y=0;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++;
+					}
+					x=-1; y=0;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--;
+					}
+					x=0; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						y++;
+					}
+					x=0; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						y--;
+					}
+					break;
+				case 'B':
+					x=1; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++; y++;
+					}
+					x=1; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++; y--;
+					}
+					x=-1; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--; y++;
+					}
+					x=-1; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--; y--;
+					}
+					break;
+				case 'b':
+					x=1; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++; y++;
+					}
+					x=1; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++; y--;
+					}
+					x=-1; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--; y++;
+					}
+					x=-1; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--; y--;
+					}
+					break;
+				case 'Q':
+					x=1; y=0;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++;
+					}
+					x=-1; y=0;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--;
+					}
+					x=0; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						y++;
+					}
+					x=0; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						y--;
+					}
+					x=1; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++; y++;
+					}
+					x=1; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++; y--;
+					}
+					x=-1; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--; y++;
+					}
+					x=-1; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--; y--;
+					}
+					break;
+				case 'q':
+					x=1; y=0;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++;
+					}
+					x=-1; y=0;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--;
+					}
+					x=0; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						y++;
+					}
+					x=0; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						y--;
+					}
+					x=1; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++; y++;
+					}
+					x=1; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x++; y--;
+					}
+					x=-1; y=1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--; y++;
+					}
+					x=-1; y=-1;
+					while(isValidCoordinates(i+x,j+y)){
+						l++;
+						if((pos->board[j+y][i+x])!='.'){
+							break;
+						}
+						x--; y--;
+					}
+					break;
+			}
+			if(isWhiteSymbol(piece))
+				evaluation += l*EVAL_PER_SQUARE;
 			else
-				evaluation += pieceSafetyValue(piece)/(CENTERCONTROLCONST*2);
+				evaluation -= l*EVAL_PER_SQUARE;
+			#ifdef TESTING
+				printf("%d ", l);
+			#endif
 		}
+		#ifdef TESTING
+		printf("\n");
+		#endif
 	}
 	
 	// KING SAFETY
+	// TODO rewrite this
 	char piece1;
 	char piece2;
+	for (int i = -1; i < 1; ++i){
+		for (int j = -1; j < 1; ++j){
+			piece1 = pos->board[j+Ky][i+Kx];
+			piece2 = pos->board[j+ky][i+kx];
+			if(isValidCoordinates(i+Kx,j+Ky) && isBlackSymbol(piece1)){
+				evaluation += 3*piecePowerValue(piece1)/KINGSAFTEYCONST;
+			}
+			if(isValidCoordinates(i+kx,j+ky) && isWhiteSymbol(piece2)){
+				evaluation += 3*piecePowerValue(piece2)/KINGSAFTEYCONST;
+			}
+		}
+	}
 	for (int i = -2; i < 2; ++i){
 		for (int j = -2; j < 2; ++j){
 			piece1 = pos->board[j+Ky][i+Kx];
 			piece2 = pos->board[j+ky][i+kx];
-			if(isValidCoordinates(i+Kx,j+Ky) && isWhiteSymbol(piece1)){
-				evaluation += pieceSafetyValue(piece1)/KINGSAFTEYCONST;
+			if(isValidCoordinates(i+Kx,j+Ky) && isBlackSymbol(piece1)){
+				evaluation += 2*piecePowerValue(piece1)/KINGSAFTEYCONST;
 			}
+			if(isValidCoordinates(i+kx,j+ky) && isWhiteSymbol(piece2)){
+				evaluation += 2*piecePowerValue(piece2)/KINGSAFTEYCONST;
+			}
+		}
+	}
+	for (int i = -3; i < 3; ++i){
+		for (int j = -3; j < 3; ++j){
+			piece1 = pos->board[j+Ky][i+Kx];
+			piece2 = pos->board[j+ky][i+kx];
 			if(isValidCoordinates(i+Kx,j+Ky) && isBlackSymbol(piece1)){
 				evaluation += piecePowerValue(piece1)/KINGSAFTEYCONST;
-			}
-			if(isValidCoordinates(i+kx,j+ky) && isBlackSymbol(piece2)){
-				evaluation += pieceSafetyValue(piece2)/KINGSAFTEYCONST;
 			}
 			if(isValidCoordinates(i+kx,j+ky) && isWhiteSymbol(piece2)){
 				evaluation += piecePowerValue(piece2)/KINGSAFTEYCONST;
 			}
 		}
 	}
-	
 	return evaluation;
 }

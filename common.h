@@ -61,7 +61,7 @@ typedef union move{
 
 // state of the game, includes pointer to last position
 typedef struct position {
-	char board[BOARD_SIZE][BOARD_SIZE];
+	char board[BOARD_SIZE+1][BOARD_SIZE];
 	// board position stored like this:
 	// rnbqkbnr pppppppp ........ PPPPPPPP RNBQKBNR
 	// small letters for black and capital for white

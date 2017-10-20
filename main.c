@@ -269,12 +269,3 @@ int main(int argc, char const *argv[]){
 	return 0;
 	#endif
 }
-
-// TODO KING SAFETY
-// TODO tempo
-// TODO pawn structure
-// TODO passed pawns
-// TODO UCI/xBoard protocol
-// TODO 3-fold repetition
-// TODO 50 move rule
-// TODO PGN mode
