@@ -122,6 +122,12 @@ int evaluate(position*);
 // prototypes for bestmove.c
 // ----------------------
 
+extern bool opening;
+extern move movehistory[];
+extern move openingBookMoves[500][10];
+void loadOpeningBook(char* filename);
+position* getOpeningFromBook(position* initialPos, int plyDepth);
+
 // gets best move from given position
 // searches upto given ply depth
 position* getBestMove(position* pos, int plyDepth);

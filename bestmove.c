@@ -37,6 +37,68 @@ typedef struct thd_args
 	int plyDepth;
 } thd_args;
 
+bool opening = true;
+// are we still in the opening?
+// can we still use the opening book?
+move movehistory[10] = {};
+move openingBookMoves[500][10] = {};
+
+void loadOpeningBook(char* filename){
+	srand(time(NULL));
+	FILE* openingBook = fopen(filename,"r");
+	int i = 0, j = 0;
+	char str[10];
+	while(fscanf(openingBook,"%s",str)!=EOF){
+		move m;
+		m.coordinates[0]=str[0];
+		m.coordinates[1]=str[1];
+		m.coordinates[2]=str[2];
+		m.coordinates[3]=str[3];
+		openingBookMoves[j][i] = m;
+		i++;
+		if(strcmp(str,"END")==0){
+			i = 0; j++;
+		}
+	}
+}
+
+position* getOpeningFromBook(position* initialPos, int plyDepth){
+	move ret; ret.move = 0;
+	move possibleMoves[100]; int l_posmoves = 0;
+	for (int i = 0; i < 50; ++i){
+		move* openingLine = openingBookMoves[i];
+		bool discard = false;
+		for (int j = 0; j<initialPos->moveno-1; ++j){
+			if (movehistory[j].move != openingLine[j].move){
+				discard = true;
+				break;
+			}
+		}
+		if(!discard){
+			if(strcmp(openingLine[initialPos->moveno-1].coordinates,"END")==0){
+				opening = false;
+				return getBestMove_threaded(initialPos, plyDepth);
+			} else if(openingLine[initialPos->moveno-1].move == 0) {
+				break;
+			} else {
+				possibleMoves[l_posmoves] = openingLine[initialPos->moveno-1];
+				l_posmoves ++;
+			}
+		}
+	}
+	float r = (int) ( ((float) rand()/RAND_MAX) * l_posmoves );
+	printf("DEBUG:%f\n",r);
+	ret = possibleMoves[(int)r];
+	if(ret.move != 0){
+		movehistory[initialPos->moveno-1] = ret;
+	}
+	else{
+		opening = false;
+		return getBestMove_threaded(initialPos, plyDepth);
+	}
+	return getPositionAfterMove(initialPos,ret);
+}
+
 void* singleThread(void* args){
 	thd_args* a = (thd_args*) args;
 	position* p = a->initialPos;
@@ -49,6 +111,9 @@ void* singleThread(void* args){
 }
 
 position* getBestMove_threaded(position* initialPos, int plyDepth){
+	if (opening){
+		return getOpeningFromBook(initialPos, plyDepth);
+	}
 	// this fxn must be run at top level
 	// i.e. initialPos is not ended and plydepth>1
 	move* movelist = possibleNextMoves(initialPos);

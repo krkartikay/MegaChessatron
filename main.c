@@ -32,6 +32,8 @@ SOFTWARE.
 #include "common.h"
 
 int main(int argc, char const *argv[]){
+
+	loadOpeningBook("opening_book.txt");
 	
 	#ifdef TESTING
 	runTests();
@@ -239,7 +241,7 @@ int main(int argc, char const *argv[]){
 
 	int p = 1;
 	// run the till someone doesnt win or 100 moves played
-	while(isGameRunning(current_position) && p<200)
+	while(isGameRunning(current_position) && p<20)
 	{
 		// print whose turn it is
 		//printf("Its is %s's turn\n", (current_position->turn=='w')?"White":"Black");
