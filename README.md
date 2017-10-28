@@ -2,7 +2,7 @@
 
 Megachessatron being built by TEAM COS-INIFINTY CSE NITH 1st year.
 
-<img alt="Image of Megachessatron" height=200 src="https://i.imgur.com/2x3xRgM.png">
+<img alt="Image of Megachessatron" height=200 src="https://i.imgur.com/2x3xRgM.png">  
 
 ## Project Structure
 
