@@ -4,6 +4,17 @@ Megachessatron being built by TEAM COS-INIFINTY CSE NITH 1st year.
 
 <img alt="Image of Megachessatron" height=200 src="https://i.imgur.com/2x3xRgM.png">  
 
+## Members of team cos infinity
+
+* Kartikey Kumar roy
+* Anshul Angaria 
+* Vaibhav Sharma 
+* Shubhankar Sharma 
+* Mayank Singh 
+* Jayant Chandel
+* Lashay Gupta 
+* Aniket Dogra
+
 ## Project Structure
 
 This is a chess engine being written in C. The code uses the MINIMAX
