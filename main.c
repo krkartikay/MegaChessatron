@@ -6,35 +6,35 @@
 
 
 /*
-MIT License
-
-Copyright (c) 2017 Team Cos-Inifinity NITH
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ * MIT License
+ *
+ * Copyright (c) 2017 Team Cos-Inifinity NITH
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 #include "common.h"
 
 int main(int argc, char const *argv[]){
 
 	loadOpeningBook("opening_book.txt");
-	
+
 	#ifdef TESTING
 	runTests();
 	return 0;
@@ -74,7 +74,7 @@ int main(int argc, char const *argv[]){
 		#endif
 		if(inputs_to_ignore>0){
 			inputs_to_ignore--;
-		} else if(strcmp(inp,"xboard")==0 
+		} else if(strcmp(inp,"xboard")==0
 			   || strcmp(inp,"accepted")==0
 			   || strcmp(inp,"rejected")==0
 			   || strcmp(inp,"force")==0
@@ -216,7 +216,7 @@ int main(int argc, char const *argv[]){
 			p++;
 		}
 	}
-	
+
 	deletePosition(current_position);
 	return 0;
 	#endif
@@ -236,7 +236,7 @@ int main(int argc, char const *argv[]){
 	char initboard[8][8]={"rnbqkbnr","pppppppp","........",
 		"........","........","........","PPPPPPPP","RNBQKBNR"};
 	current_position = createNewPosition(initboard);
-	
+
 	displayBoard(current_position);
 
 	int p = 1;
@@ -252,9 +252,9 @@ int main(int argc, char const *argv[]){
 		}
 		current_position = getBestMove_threaded(current_position, depth);
 		char* c = moveplayed(current_position).coordinates;
-		
+
 		displayBoard(current_position);
-		
+
 		if(p%2 == 1){
 			// white's turn
 			printf("%2d. %s ... \t\t (%d) \n\n",(p+1)/2, c, current_position->evaluation);
@@ -262,11 +262,11 @@ int main(int argc, char const *argv[]){
 			// black's turn
 			printf("%2d.    ... %s\t\t (%d)\n\n",p/2, c,  current_position->evaluation);
 		}
-		
+
 		fflush(stdout);
 		p++;
 	}
-	
+
 	deletePosition(current_position);
 	return 0;
 	#endif
