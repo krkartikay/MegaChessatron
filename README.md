@@ -6,7 +6,7 @@ Megachessatron being built by TEAM COS-INIFINTY CSE NITH 1st year.
 
 ## Members of team cos infinity
 
-* Kartikey Kumar roy
+* Kumar Kartikay
 * Anshul Angaria 
 * Vaibhav Sharma 
 * Shubhankar Sharma 
