@@ -6,11 +6,11 @@ Megachessatron being built by TEAM COS-INIFINTY CSE NITH 2k21
 
 ## Members of team cos infinity
 
-* Kartikey Kumar roy
-* Anshul Angaria
-* Vaibhav Sharma
-* Shubhankar Sharma
-* Mayank Singh
+* Kumar Kartikay
+* Anshul Angaria 
+* Vaibhav Sharma 
+* Shubhankar Sharma 
+* Mayank Singh 
 * Jayant Chandel
 * Lashay Gupta
 * Aniket Dogra
