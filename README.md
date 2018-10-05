@@ -1,6 +1,6 @@
 # PROJECT MEGACHESSATRON
 
-Megachessatron being built by TEAM COS-INIFINTY CSE NITH 1st year.
+Megachessatron being built by TEAM COS-INIFINTY CSE NITH 2k21
 
 <img alt="Image of Megachessatron" height=200 src="https://i.imgur.com/2x3xRgM.png">  
 
@@ -12,7 +12,7 @@ Megachessatron being built by TEAM COS-INIFINTY CSE NITH 1st year.
 * Shubhankar Sharma 
 * Mayank Singh 
 * Jayant Chandel
-* Lashay Gupta 
+* Lashay Gupta
 * Aniket Dogra
 
 ## Project Structure
@@ -48,7 +48,7 @@ To run it, simply type `./MegaChessatron`.
 
 On windows you can either try to import the project into DevC++ and
 set the custom Makefile using instructions given here:
-https://stackoverflow.com/questions/13544684/running-a-project-in-dev-c 
+https://stackoverflow.com/questions/13544684/running-a-project-in-dev-c
 or you may use either the git shell or cygwin to get a linux shell in windows.
 
 ## How to run this program in a GUI (Xboard/Winboard protocol)
