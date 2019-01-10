@@ -82,7 +82,7 @@ position* getOpeningFromBook(position* initialPos, int plyDepth){
 				break;
 			} else {
 				possibleMoves[l_posmoves] = openingLine[initialPos->moveno-1];
-				l_posmoves ++;
+				++ l_posmoves;
 			}
 		}
 	}
