@@ -1,27 +1,14 @@
 # PROJECT MEGACHESSATRON
 
-Megachessatron being built by TEAM COS-INIFINTY CSE NITH 2k21
-
 <img alt="Image of Megachessatron" height=200 src="https://i.imgur.com/2x3xRgM.png">  
-
-## Members of team cos infinity
-
-* Kumar Kartikay
-* Anshul Angaria 
-* Vaibhav Sharma 
-* Shubhankar Sharma 
-* Mayank Singh 
-* Jayant Chandel
-* Lashay Gupta
-* Aniket Dogra
 
 ## Project Structure
 
-This is a chess engine being written in C. The code uses the MINIMAX
+This is a simple chess engine written in C. The code uses the Minimax
 algorithm to evaluate the best move in a given position. The state of
 the game is stored in structs in C.
 
-The various files are:
+## File structure:
 
   * common.h -- contains all definitions (game state, functions etc).
                 Included by all files.
