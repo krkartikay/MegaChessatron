@@ -1,4 +1,5 @@
 # PROJECT MEGACHESSATRON
+Created by students of CSE NITH 3rd year.
 
 <img alt="Image of Megachessatron" height=200 src="https://i.imgur.com/2x3xRgM.png">  
 
