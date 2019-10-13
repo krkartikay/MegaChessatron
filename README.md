@@ -1,23 +1,27 @@
-# MegaChessatron
-Megachessatron being built by students of CSE NITH 3rd year.
+# PROJECT MEGACHESSATRON
+Created by students of CSE NITH 3rd year.
+
+<img alt="Image of Megachessatron" height=200 src="https://i.imgur.com/2x3xRgM.png">  
 
 ## Project Structure
 
-This is a chess engine being written in C. The code uses the MINIMAX
+This is a simple chess engine written in C. The code uses the Minimax
 algorithm to evaluate the best move in a given position. The state of
 the game is stored in structs in C.
 
-The various files are:
+## File structure:
 
   * common.h -- contains all definitions (game state, functions etc).
                 Included by all files.
-  * board.c -- contains code for managing structs having board position
+
+  * board.c -- contains code for managing structs having board position, printing board, etc etc
   * moves.c -- contains code for finding possible moves etc
   * evaluate.c -- contains evaluation function which calculates
                 chances of winning/losing
   * main.c -- contains the user interface, input/output etc.
   * bestmove.c -- contains commands to find best move according
                 to minimax algorithm.
+  * loops.c -- contains helper functions for bestmove
   * Makefile -- config file for automatic building/compiling.
 
 ## How to Compile and Run the code
@@ -32,8 +36,16 @@ To run it, simply type `./MegaChessatron`.
 
 On windows you can either try to import the project into DevC++ and
 set the custom Makefile using instructions given here:
-https://stackoverflow.com/questions/13544684/running-a-project-in-dev-c 
+https://stackoverflow.com/questions/13544684/running-a-project-in-dev-c
 or you may use either the git shell or cygwin to get a linux shell in windows.
+
+## How to run this program in a GUI (Xboard/Winboard protocol)
+You can install Arena Chess Program which is a GUI for various chess
+engines. Compile the code with "make xboard" and then you will get
+an executable file "MegaChessatron". Open Arena and go into "load engine"
+or install engine option and choose the executable file and set protocol
+to XBoard or Winboard v1. Then use the engine GUI to either play with
+the program yourself or arrange an engine-vs-engine match.
 
 ## How to contribute to the code
 In order to contribute to the code, you have to first fork this repository

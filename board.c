@@ -1,3 +1,34 @@
+// ============================
+//
+//    PROJECT MEGACHESSATRON
+//
+// ============================
+
+
+/*
+ * MIT License
+ *
+ * Copyright (c) 2017 Team Cos-Inifinity NITH
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 #include "common.h"
 
 /*
@@ -28,14 +59,14 @@
 position* createNewPosition(char a[BOARD_SIZE][BOARD_SIZE]){
 	position* newPos = malloc(sizeof(position));
 	//newPos->lastPos=NULL;
+	char *q = (char*)a;
+	char *w = (char*)newPos->board;
 	newPos->turn = 'w';
 	newPos->evaluation = 0;
 	newPos->currentMove.move = 0;
-	for(int j=0; j<BOARD_SIZE; j++){
-		for(int i=0; i<BOARD_SIZE; i++){
-			newPos->board[j][i] = a[j][i];
-		}
-	}
+	newPos->moveno=1;
+	*(q+BOARD_SIZE*BOARD_SIZE) = '\0';
+	strcpy(w,q);
 	return newPos;
 }
 
@@ -44,13 +75,104 @@ void deletePosition(position* pos){
 }
 
 void displayBoard(position* pos){
-	char line[]="+-+-+-+-+-+-+-+-+";
+	char line[]="+---+---+---+---+---+---+---+---+";
+	char x = ' ';
 	for(int j=0; j<BOARD_SIZE; j++){
 		printf("%s\n",line);
 		for(int i=0; i<BOARD_SIZE; i++){
-			printf("|%c",pos->board[j][i]);
+			// uncomment these lines to get black and white squares
+			// i dont like it so i commented it out
+			/*if((i+j)%2 == 1)
+				x = '.';
+			else
+				x = ' ';*/
+			if(pos->board[j][i]!='.')
+				printf("|%c%c%c",x,pos->board[j][i],x);
+			else
+				printf("|%c%c%c",x,x,x);
 		}
 		printf("|\n");
 	}
 	printf("%s\n",line);
+}
+
+void log_board(FILE* f,position* pos){
+	if (!pos)
+	{
+		fprintf(f, "No Position initialised.\n");
+		return;
+	}
+	char line[]="+---+---+---+---+---+---+---+---+";
+	char x = ' ';
+	for(int j=0; j<BOARD_SIZE; j++){
+		fprintf(f,"%s\n",line);
+		for(int i=0; i<BOARD_SIZE; i++){
+			// uncomment these lines to get black and white squares
+			// i dont like it so i commented it out
+			/*if((i+j)%2 == 1)
+				x = '.';
+			else
+				x = ' ';*/
+			if(pos->board[j][i]!='.')
+				fprintf(f,"|%c%c%c",x,pos->board[j][i],x);
+			else
+				fprintf(f,"|%c%c%c",x,x,x);
+		}
+		fprintf(f,"|\n");
+	}
+	fprintf(f,"%s\n",line);
+}
+
+bool isGameRunning(position* pos){
+	// true if running
+	// false if ended
+	bool isThereAWhiteKing = false;
+	bool isThereABlackKing = false;
+	bool areThereValidMoves = false;
+	for(int j=0; j<BOARD_SIZE; j++){
+		for(int i=0; i<BOARD_SIZE; i++){
+			switch(pos->board[j][i]){
+				case 'k':
+					isThereABlackKing = true;
+					break;
+				case 'K':
+					isThereAWhiteKing = true;
+					break;
+			}
+		}
+	}
+	move* movelist = possibleNextMoves(pos);
+	if(movelist[0].move){
+		areThereValidMoves = true;
+		free(movelist);
+	}
+	return isThereAWhiteKing && isThereABlackKing && areThereValidMoves;
+}
+
+int whoWon(position* pos){
+	// returns -1 for black won; +1 for white won; 0 for draw;
+	// returns 2 for game still running.
+	bool isThereAWhiteKing = false;
+	bool isThereABlackKing = false;
+	bool areThereValidMoves = false;
+	for(int j=0; j<BOARD_SIZE; j++){
+		for(int i=0; i<BOARD_SIZE; i++){
+			switch(pos->board[j][i]){
+				case 'k':
+					isThereABlackKing = true;
+					break;
+				case 'K':
+					isThereAWhiteKing = true;
+					break;
+			}
+		}
+	}
+	move* movelist = possibleNextMoves(pos);
+	if(movelist[0].move)
+		areThereValidMoves = true;
+	free(movelist);
+	if(!isThereABlackKing) return 1;
+	if(!isThereAWhiteKing) return -1;
+	if(!areThereValidMoves) return 0;
+	return 2;
 }
